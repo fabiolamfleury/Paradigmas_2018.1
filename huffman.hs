@@ -1,4 +1,5 @@
 
+import Control.Monad
 
 getFather :: (Int) -> Int
 getFather (x) = div x 2
@@ -20,12 +21,11 @@ swap (positionA, positionB,  xs) =
       in left ++ [tmpA] ++ middle ++ [tmpB] ++ right
 
 
-heapifyUp :: (Int , [Int]) -> [Int]
 
---não funciona devido o otherwise :/
+
+heapifyUp :: (Int , [Int]) -> [Int]
 heapifyUp (0, xs)  = xs
 heapifyUp (index, xs)
-    -- acessando valores na lista
-      |(!!)xs index >  xs !! getFather(index) =
-            swap(index, getFather(index), xs)
-      | otherwise =  heapifyUp (getFather(index), xs)
+         |(!!)xs index >  xs !! getFather(index) =
+            let listAux = swap(index, getFather(index), xs)
+                  in  heapifyUp (getFather(index), listAux)
