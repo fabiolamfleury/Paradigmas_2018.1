@@ -25,6 +25,7 @@ heapifyUp :: (Int , [Int]) -> [Int]
 heapifyUp (index, xs)
     -- acessando valores na lista
        |(!!)xs index >  xs !! getFather(index) =
-            swap (index, getFather(index), xs)
-            heapifyUp (getFather(index), xs)
+          swap(index, getFather(index), xs)
+      |(!!)xs index >  xs !! getFather(index) =
+          heapifyUp (getFather(index), xs)
       | otherwise =  xs
