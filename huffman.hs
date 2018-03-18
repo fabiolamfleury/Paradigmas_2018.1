@@ -22,10 +22,10 @@ swap (positionA, positionB,  xs) =
 
 heapifyUp :: (Int , [Int]) -> [Int]
 
+--não funciona devido o otherwise :/
+heapifyUp (0, xs)  = xs
 heapifyUp (index, xs)
     -- acessando valores na lista
-       |(!!)xs index >  xs !! getFather(index) =
-          swap(index, getFather(index), xs)
       |(!!)xs index >  xs !! getFather(index) =
-          heapifyUp (getFather(index), xs)
-      | otherwise =  xs
+            swap(index, getFather(index), xs)
+      | otherwise =  heapifyUp (getFather(index), xs)
