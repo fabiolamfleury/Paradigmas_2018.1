@@ -1,8 +1,10 @@
---module AbstractData where
+module AbstractData where
+
+-- Structs for HuffmanNode
 type Letter = Char
 type Value = Float
+type HuffmanNode = (Letter, Value)
 
-data Huffman = HuffmanNode Letter Value
-               deriving(Show)
-
-huffmanNode = HuffmanNode 'c' 4.8
+-- Functions for manipulate HuffmanNode
+getFistElement (x,_) = x
+getSecondElement(_,x) = x
