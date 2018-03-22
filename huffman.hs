@@ -1,5 +1,8 @@
 
 import Data.List
+import AbstractData
+
+
 getFather :: (Int) -> Int
 getFather (x) = div x 2
 
@@ -16,7 +19,6 @@ swap (i, j ,xs) |otherwise = left ++ (xs !! b) : middle ++ (xs !! a) : right
                         left = take a xs
                         middle = take (b - a - 1) (drop (a + 1) xs)
                         right = drop (b + 1) xs
-
 
 heapifyUp :: (Int , [Int]) -> [Int]
 heapifyUp (i, xs) =
