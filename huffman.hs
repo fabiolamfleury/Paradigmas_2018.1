@@ -1,6 +1,5 @@
 
-import Control.Monad
-
+import Data.List
 getFather :: (Int) -> Int
 getFather (x) = div x 2
 
@@ -10,22 +9,17 @@ getSonRight x = 2*x + 1
 getSonLeft :: Int -> Int
 getSonLeft x = 2*x
 
-
-swap :: (Int,Int,[Int]) -> [Int]
-swap (positionA, positionB,  xs) =
-      let tmpA =  xs !! positionA
-          tmpB =  xs !! positionB
-          left = take positionB xs
-          middle = take(positionA - positionB - 1) (drop (positionB + 1) xs)
-          right = drop (positionA + 1 )xs
-      in left ++ [tmpA] ++ middle ++ [tmpB] ++ right
-
-
+swap :: (Int , Int , [Int]) -> [Int]
+swap (i, j, xs) | i == j  = xs
+swap (i, j ,xs) |otherwise = left ++ (xs !! b) : middle ++ (xs !! a) : right
+                  where [a,b] = sort[i,j]
+                        left = take a xs
+                        middle = take (b - a - 1) (drop (a + 1) xs)
+                        right = drop (b + 1) xs
 
 
 heapifyUp :: (Int , [Int]) -> [Int]
-heapifyUp (0, xs)  = xs
-heapifyUp (index, xs)
-         |(!!)xs index >  xs !! getFather(index) =
-            let listAux = swap(index, getFather(index), xs)
-                  in  heapifyUp (getFather(index), listAux)
+heapifyUp (i, xs) =
+          if (xs !! i) > (xs !! f) then swap(i,f,xs)
+          else xs
+          where f = getFather(i)
