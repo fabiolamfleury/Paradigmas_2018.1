@@ -25,6 +25,7 @@ heapifyUp :: (Int , [HuffmanNode]) -> [HuffmanNode]
 heapifyUp (i, xs) =
           if v > u then swap(i,f,xs)
           else xs
+          -- Get Numeric part of huffmanNode
           where f = getFather(i)
                 v = getSecondElement(xs !! i)
                 u = getSecondElement(xs !! f)
