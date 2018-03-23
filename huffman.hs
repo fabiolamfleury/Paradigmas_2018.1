@@ -1,3 +1,5 @@
+module Huffman where
+
 import AbstractData
 import Heap
 
