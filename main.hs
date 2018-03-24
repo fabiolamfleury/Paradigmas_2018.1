@@ -1,4 +1,7 @@
 import AbstractData
 import Heap
+import Huffman
 
-start(i,xs) = heapifyUp(i,xs)
+start :: ([Char],[HuffmanNode]) -> [HuffmanNode]
+start(xs,[]) = let list = preparerHeapify(xs,[])
+                      in heapifyUp(length(list)-1,list)

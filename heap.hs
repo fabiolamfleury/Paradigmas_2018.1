@@ -2,6 +2,7 @@ module Heap where
 
 import Data.List
 import AbstractData
+import Huffman
 
 getFather :: (Int) -> Int
 getFather (x) = div x 2
@@ -27,5 +28,12 @@ heapifyUp (i, xs) =
           else xs
           -- Get Numeric part of huffmanNode
           where f = getFather(i)
-                v = getSecondElement(xs !! i)
-                u = getSecondElement(xs !! f)
+                v = getFloatHuffman(xs !! i)
+                u = getFloatHuffman(xs !! f)
+
+preparerHeapify :: ([Char],[HuffmanNode]) -> [HuffmanNode]
+preparerHeapify(char,xs) = do
+            let charValues = "abcdefghijklmnopqrstuvwxyz"
+                list = countLetter(char,charValues,xs)
+                v = getTotal(list)
+                    in calculatePercente(list,v)

@@ -15,7 +15,7 @@ hasHuffmanLetter (char, []) = False
 hasHuffmanLetter (char, (h:t))
                   |char == v = True
                   |otherwise = hasHuffmanLetter(char,t)
-                    where v = getFistElement(h)
+                    where v = getCharHuffman(h)
 
 
 count :: (Char,[Char]) -> Int
@@ -34,3 +34,17 @@ hasLetter(char,[x])
 hasLetter(char,(h:t))
          | char == h = True
          |otherwise = hasLetter(char,t)
+
+
+getTotal :: ([HuffmanNode]) -> Int
+getTotal([]) = 0
+getTotal ((h:t)) = v + getTotal(t)
+                  where v = getIntHuffman(h)
+
+calculatePercente :: ([HuffmanNode],Int) -> [HuffmanNode]
+calculatePercente([],v) = []
+calculatePercente((h:t),v) =
+               [(u,d,a)] ++ calculatePercente(t,v)
+                       where a = getIntHuffman(h)
+                             u = getCharHuffman(h)
+                             d =  (fromIntegral a / fromIntegral v)
