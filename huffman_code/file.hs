@@ -1,12 +1,13 @@
 module File where
-import System.IO (readFile)
+import System.IO
 import System.Directory
 
-readingFile :: IO String
-readingFile = do
-                putStrLn "Digite o nome do arquivo que será lido"
-                fileName <- getLine
-                readFile fileName
+readingFile :: String
+readingFile = do  putStrLn "Digite o nome do arquivo que será lido"
+                  fileName <- getLine
+                  inh <- openFile fileName ReadMode
+                  inpStr <- hGetContents inh
+                  return (inpStr)
 
 currentPath :: IO FilePath
 currentPath = getCurrentDirectory
