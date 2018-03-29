@@ -1,19 +1,37 @@
 module Start where
 import Control.Arrow
 import Data.List
-
-import Control.Arrow
-import Data.List
 import qualified Data.Map
 import Data.Function
+import System.IO (readFile)
 
 data HuffTree  = Leaf Int Char
                        | Fork Int HuffTree HuffTree
                        deriving (Show)
 
-start :: Ord b => [b] -> [(Int, b)]
-start text = sortingList list
-              where list = elementFrequency text
+-- Main menu that let user choose between compressing and decompressing files
+start :: IO ()
+start = do  putStrLn "Menu Principal Huffman  ";
+            putStrLn "\t1 - Quero comprimir meu arquivo";
+            putStrLn "\t2 - Quero descomprimir meu arquivo";
+            putStrLn "\t3 - Quero sair do programa";
+            opcao <- getLine;
+            case opcao of
+                 "1" -> encode;
+                 "2" -> putStrLn "Descompressão de arquivo ainda não foi implementada";
+                 otherwise -> putStrLn "Saindo...";
+
+-- User chooses file to be compressed
+encode :: IO ()
+encode = do putStrLn "Digite o nome do arquivo";
+            fileName <- getLine
+            file <- readFile fileName
+            let list = sortingList (elementFrequency file)
+            print list
+            putStrLn "Implementação incompleta, ainda não é comprimido o arquivo!"
+            putStrLn "... Aperte enter para retornar ao menu principal"
+            getLine
+            start
 
 -- Count each char frequency and group it by type (sorting in  ascii order)
 elementFrequency :: Ord a => [a] -> [(Int, a)]
@@ -30,7 +48,7 @@ getFrequency (Fork frequency _ _ ) = frequency
 mergeElements :: HuffTree -> HuffTree -> HuffTree
 mergeElements tree1  tree2 = Fork (getFrequency tree1 + getFrequency tree2)  tree1 tree2
 
- buildTree :: [(Char, Int)] -> HuffTree
- buildTree = bld . map (uncurry Leaf) . sortBy (compare `on` snd)
-     where  bld (t:[])    = t
-            bld (a:b:cs)  = bld $ insertBy (compare `on` fst) (mergeElements a b) cs
+-- buildTree :: [(Char, Int)] -> HuffTree
+-- buildTree = bld . map (uncurry Leaf) . sortBy (compare `on` snd)
+--     where  bld (t:[])    = t
+--            bld (a:b:cs)  = bld $ insertBy (compare `on` fst) (mergeElements a b) cs
