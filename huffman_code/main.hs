@@ -2,8 +2,7 @@ module Start where
 import Huffman
 import AbstractData
 import Heap
-import File
 
-start :: ([Char]) -> [HuffmanNode]
-start (xs) = let list = preparerHeapify(readingFile,[])
+start :: (String) -> [HuffmanNode]
+start xs = let list = preparerHeapify(xs,[])
                       in heapifyUp(length(list)-1,list)

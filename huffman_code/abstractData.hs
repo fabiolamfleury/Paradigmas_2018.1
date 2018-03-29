@@ -4,9 +4,11 @@ module AbstractData where
 type Letter = Char
 type Value = Float
 type Frequence = Int
-type HuffmanNode = (Letter, Value, Frequence)
+type HuffmanNode = (Letter, Frequence)
 
 --Functions for manipulate HuffmanNode
-getCharHuffman (x,_,_) = x
-getFloatHuffman(_,x,_) = x
-getIntHuffman(_,_,x) = x
+getCharHuffman :: HuffmanNode -> Letter
+getCharHuffman (x,_) = x
+
+getIntHuffman :: HuffmanNode -> Frequence
+getIntHuffman(_,x) = x

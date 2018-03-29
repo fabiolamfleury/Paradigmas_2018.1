@@ -28,12 +28,9 @@ heapifyUp (i, xs) =
           else xs
           -- Get Numeric part of huffmanNode
           where f = getFather(i)
-                v = getFloatHuffman(xs !! i)
-                u = getFloatHuffman(xs !! f)
+                v = getIntHuffman(xs !! i)
+                u = getIntHuffman(xs !! f)
 
 preparerHeapify :: ([Char],[HuffmanNode]) -> [HuffmanNode]
-preparerHeapify(char,xs) = do
-            let charValues = "abcdefghijklmnopqrstuvwxyz"
-                list = countLetter(char,charValues,xs)
-                v = getTotal(list)
-                    in calculatePercente(list,v)
+preparerHeapify(char,xs) = countLetter(char,charValues,xs)
+                            where charValues = "abcdefghijklmnopqrstuvwxyz"
