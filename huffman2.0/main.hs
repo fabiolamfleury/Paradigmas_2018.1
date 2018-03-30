@@ -1,9 +1,8 @@
 module Start where
 import Control.Arrow
 import Data.List
-import qualified Data.Map
-import Data.Function
 import System.IO (readFile)
+import Data.Function
 
 data HuffTree  = Leaf Int Char
                        | Fork Int HuffTree HuffTree
@@ -26,7 +25,7 @@ encode :: IO ()
 encode = do putStrLn "Digite o nome do arquivo";
             fileName <- getLine
             file <- readFile fileName
-            let list = sortingList (elementFrequency file)
+            let list = buildTree (sortingList (elementFrequency file))
             print list
             putStrLn "Implementação incompleta, ainda não é comprimido o arquivo!"
             putStrLn "... Aperte enter para retornar ao menu principal"
@@ -48,7 +47,7 @@ getFrequency (Fork frequency _ _ ) = frequency
 mergeElements :: HuffTree -> HuffTree -> HuffTree
 mergeElements tree1  tree2 = Fork (getFrequency tree1 + getFrequency tree2)  tree1 tree2
 
--- buildTree :: [(Char, Int)] -> HuffTree
--- buildTree = bld . map (uncurry Leaf) . sortBy (compare `on` snd)
---     where  bld (t:[])    = t
---            bld (a:b:cs)  = bld $ insertBy (compare `on` fst) (mergeElements a b) cs
+buildTree :: [(Int, Char)] -> HuffTree
+buildTree = huffTree . map (uncurry Leaf) . sortBy (compare `on` snd)
+              where  huffTree [t]    = t
+                     huffTree (a:b:cs)  = huffTree $ insertBy (compare `on` getFrequency) (mergeElements a b) cs
