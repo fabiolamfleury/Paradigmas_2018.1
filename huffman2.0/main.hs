@@ -1,7 +1,8 @@
 module Start where
-import System.IO (readFile)
+import System.IO (readFile, hClose)
 import Data.Function
 import Huffman
+import File
 
 -- Main menu that let user choose between compressing and decompressing files
 start :: IO ()
@@ -22,7 +23,9 @@ encode = do putStrLn "Digite o nome do arquivo";
             file <- readFile fileName
             let list = buildTree (sortingList (elementFrequency file))
             print list
-            putStrLn "Implementação incompleta, ainda não é comprimido o arquivo!"
+            let lettersCode = findLetterCode list ""
+            print lettersCode
+            writeCodeInFile file "out.txt" lettersCode ""
             putStrLn "... Aperte enter para retornar ao menu principal"
             getLine
             start

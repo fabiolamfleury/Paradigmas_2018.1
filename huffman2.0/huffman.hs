@@ -29,6 +29,7 @@ buildTree = huffTree . map (uncurry Leaf) . sortBy (compare `on` snd)
              where  huffTree [t]    = t
                     huffTree (a:b:cs)  = huffTree $ insertBy (compare `on` getFrequency) (mergeElements a b) cs
 
+-- Find compress code of each letter using the huffTree
 findLetterCode :: HuffTree -> String -> [(Char, String)]
 findLetterCode (Leaf _ letter) code = [(letter, code)]
 findLetterCode (Fork value huffTreeLeft huffTreeRigth) code = (findLetterCode huffTreeLeft (code ++ "0")) ++ (findLetterCode huffTreeRigth (code ++ "1"))
