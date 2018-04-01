@@ -32,6 +32,7 @@ encode = do
                     let lettersCode = findLetterCode list ""
                     print lettersCode
                     writeCodeInFile file "out.txt" lettersCode ""
+                    writeTree list
                     putStrLn "... Aperte enter para retornar ao menu principal"
                     getLine
                     start

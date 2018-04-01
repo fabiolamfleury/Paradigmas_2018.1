@@ -8,6 +8,9 @@ import Data.Function
 data HuffTree  = Leaf Int Char
                        | Fork Int HuffTree HuffTree
                        deriving (Show)
+--instance Show Film where
+          --show (Film title director year rating) = ...
+              --where ratingString = show rating
 
 -- Count each char frequency and group it by type (sorting in  ascii order)
 elementFrequency :: Ord a => [a] -> [(Int, a)]

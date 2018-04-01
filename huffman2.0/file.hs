@@ -1,4 +1,5 @@
 module File where
+import Huffman
 import Data.Maybe (fromMaybe)
 
 -- Write the compress cod in the file
@@ -12,3 +13,8 @@ writeCodeInFile fileToBeCompressed fileOut lettersCode fileCode = do
   -- fromMaybe convert Maybe String to String
   let letterCode = fromMaybe "" ((lookup (head fileToBeCompressed) lettersCode))
   writeCodeInFile (tail fileToBeCompressed) fileOut lettersCode (fileCode ++ letterCode)
+
+
+writeTree :: HuffTree -> IO()
+writeTree a = writeFile "teste.txt" c 
+                  where c = show(a)
