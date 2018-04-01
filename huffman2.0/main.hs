@@ -42,13 +42,17 @@ encode = do
                   else ioError erro
 
 
+-- Function to find letter in Huffman tree
 find :: ([Char],HuffTree) -> [Char]
 find(xs, Leaf _ letter) = [letter]
 find(h:t,Fork value left right) = if h == '0' then find(t,left) ++ find(t,right)
                                                     else find(t,right) ++ find(t,left)
 
+-- Convert String in file in a HuffTree
 parse :: [Char] -> HuffTree
 parse a = read a :: HuffTree
+
+
 decode :: IO()
 decode = do
          file <- readFile "tree.txt"
