@@ -1,5 +1,7 @@
 module Start where
 import System.IO (readFile, hClose)
+import Control.Exception
+import System.IO.Error
 import Data.Function
 import Huffman
 import File
@@ -18,14 +20,23 @@ start = do  putStrLn "Menu Principal Huffman  ";
 
  -- User chooses file to be compressed
 encode :: IO ()
-encode = do putStrLn "Digite o nome do arquivo";
-            fileName <- getLine
-            file <- readFile fileName
-            let list = buildTree (sortingList (elementFrequency file))
-            print list
-            let lettersCode = findLetterCode list ""
-            print lettersCode
-            writeCodeInFile file "out.txt" lettersCode ""
-            putStrLn "... Aperte enter para retornar ao menu principal"
-            getLine
-            start
+encode = do
+            {catch (tryRead) exception;}
+            where
+                  tryRead = do
+                    putStrLn "Digite o nome do arquivo";
+                    fileName <- getLine
+                    file <- readFile fileName
+                    let list = buildTree (sortingList (elementFrequency file))
+                    print list
+                    let lettersCode = findLetterCode list ""
+                    print lettersCode
+                    writeCodeInFile file "out.txt" lettersCode ""
+                    putStrLn "... Aperte enter para retornar ao menu principal"
+                    getLine
+                    start
+                  exception erro = if isDoesNotExistError erro
+                          then do
+                            putStrLn "Arquivo não encontrado";
+                            encode
+                  else ioError erro
