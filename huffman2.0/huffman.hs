@@ -7,10 +7,7 @@ import Data.Function
 -- type HuffmanNode = (String, Int)
 data HuffTree  = Leaf Int Char
                        | Fork Int HuffTree HuffTree
-                       deriving (Show)
---instance Show Film where
-          --show (Film title director year rating) = ...
-              --where ratingString = show rating
+                       deriving (Show,Read)
 
 -- Count each char frequency and group it by type (sorting in  ascii order)
 elementFrequency :: Ord a => [a] -> [(Int, a)]
@@ -35,4 +32,4 @@ buildTree = huffTree . map (uncurry Leaf) . sortBy (compare `on` snd)
 -- Find compress code of each letter using the huffTree
 findLetterCode :: HuffTree -> String -> [(Char, String)]
 findLetterCode (Leaf _ letter) code = [(letter, code)]
-findLetterCode (Fork value huffTreeLeft huffTreeRigth) code = (findLetterCode huffTreeLeft (code ++ "0")) ++ (findLetterCode huffTreeRigth (code ++ "1"))
+findLetterCode (Fork value huffTreeLeft huffTreeRight) code = (findLetterCode huffTreeLeft (code ++ "0")) ++ (findLetterCode huffTreeRight (code ++ "1"))

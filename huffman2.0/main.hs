@@ -15,8 +15,7 @@ start = do  putStrLn "Menu Principal Huffman  ";
             opcao <- getLine;
             case opcao of
                  "1" -> encode;
-                 "2" -> putStrLn "Descompressão de arquivo ainda não foi implementada";
-                 otherwise -> putStrLn "Saindo...";
+                 "2" -> decode;
 
  -- User chooses file to be compressed
 encode :: IO ()
@@ -41,3 +40,20 @@ encode = do
                             putStrLn "Arquivo não encontrado";
                             encode
                   else ioError erro
+
+
+find :: ([Char],HuffTree) -> [Char]
+find(xs, Leaf _ letter) = [letter]
+find(h:t,Fork value left right) = if h == '0' then find(t,left) ++ find(t,right)
+                                                    else find(t,right) ++ find(t,left)
+
+parse :: [Char] -> HuffTree
+parse a = read a :: HuffTree
+decode :: IO()
+decode = do
+         file <- readFile "tree.txt"
+         fileA <- readFile "out.txt"
+         print fileA
+         let a = parse file
+             b = find(fileA,a)
+          in print b

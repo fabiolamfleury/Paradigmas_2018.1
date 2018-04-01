@@ -16,5 +16,5 @@ writeCodeInFile fileToBeCompressed fileOut lettersCode fileCode = do
 
 
 writeTree :: HuffTree -> IO()
-writeTree a = writeFile "teste.txt" c 
+writeTree a = writeFile "tree.txt" c 
                   where c = show(a)
