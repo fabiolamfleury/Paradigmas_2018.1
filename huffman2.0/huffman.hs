@@ -1,8 +1,9 @@
 module Huffman where
 import Control.Arrow
-import Data.List
+import Data.List hiding (find)
 import System.IO (readFile)
 import Data.Function
+
 
 -- type HuffmanNode = (String, Int)
 data HuffTree  = Leaf Int Char
@@ -33,3 +34,10 @@ buildTree = huffTree . map (uncurry Leaf) . sortBy (compare `on` snd)
 findLetterCode :: HuffTree -> String -> [(Char, String)]
 findLetterCode (Leaf _ letter) code = [(letter, code)]
 findLetterCode (Fork value huffTreeLeft huffTreeRight) code = (findLetterCode huffTreeLeft (code ++ "0")) ++ (findLetterCode huffTreeRight (code ++ "1"))
+
+-- Function to find letter in Huffman tree
+find :: ([Char],HuffTree,HuffTree, String) -> [Char]
+find([],_,_,list) = list
+find(xs, Leaf _ letter,tree,list) = [letter] ++ find(xs,tree,tree,list)
+find(h:t,Fork value left right,tree,list) = if h == '0' then list ++ find(t,left,tree,list)
+                                                    else list ++ find(t,right,tree,list)
