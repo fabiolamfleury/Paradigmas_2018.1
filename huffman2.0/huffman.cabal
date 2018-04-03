@@ -1,0 +1,31 @@
+name:                huffman
+
+version:             0.1.0.0
+synopsis:            Encodes and decodes string files so that they can be compressed
+homepage:            https://github.com/fabiolamfleury/Paradigmas_2018.1
+license:             MIT
+author:              Fabíola Fleury, Lucas Oliveira, Josué Nascimento
+maintainer:          fabiola.mfleury@gmail.com
+category:            Language Paradigms studies
+
+build-type:          Simple
+cabal-version:       >=1.10
+
+executable huffman
+  -- .hs or .lhs file containing the Main module.
+  main-is:             Main.hs
+
+  -- Modules included in this executable, other than Main.
+  other-modules:       Huffman
+                        ,File
+  -- LANGUAGE extensions used by modules in this package.
+  -- other-extensions:
+  -- Directories containing source files.
+  hs-source-dirs:       ., src
+  -- Other library packages from which modules are imported.
+  build-depends:       containers, base >=4.8 && <4.9
+
+
+
+  -- Base language which the package is written in.
+  default-language:    Haskell2010

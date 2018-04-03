@@ -1,4 +1,4 @@
-module Start where
+module Main where
 import System.IO (readFile, hClose)
 import Control.Exception
 import System.IO.Error
@@ -7,8 +7,8 @@ import Huffman
 import File
 
 -- Main menu that let user choose between compressing and decompressing files
-start :: IO ()
-start = do  putStrLn "Menu Principal Huffman  ";
+main :: IO ()
+main = do  putStrLn "Menu Principal Huffman  ";
             putStrLn "\t1 - Quero comprimir meu arquivo";
             putStrLn "\t2 - Quero descomprimir meu arquivo";
             putStrLn "\t3 - Quero sair do programa";
@@ -34,7 +34,7 @@ encode = do
                     writeTree list
                     putStrLn "... Aperte enter para retornar ao menu principal"
                     getLine
-                    start
+                    main
                   exception erro = if isDoesNotExistError erro
                           then do
                             putStrLn "Arquivo não encontrado";
