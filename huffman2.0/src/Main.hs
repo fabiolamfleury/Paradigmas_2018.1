@@ -30,7 +30,9 @@ encode = do
                     print list
                     let lettersCode = findLetterCode list ""
                     print lettersCode
-                    writeCodeInFile file "out.txt" lettersCode ""
+                    putStrLn "Digite o nome do arquivo de saida"
+                    fileNameOut <- getLine
+                    writeCodeInFile file fileNameOut lettersCode ""
                     writeTree list
                     putStrLn "... Aperte enter para retornar ao menu principal"
                     getLine
@@ -43,9 +45,22 @@ encode = do
 
 decode :: IO()
 decode = do
-         file <- readFile "tree.txt"
-         fileA <- readFile "out.txt"
-         print fileA
-         let a = parse file
-             b = find(fileA,a,a,"")
-          in print b
+            {catch (tryRead) exception;}
+            where
+              tryRead = do
+                putStrLn "Digite o nome do arquivo a ser decodificado";
+                fileName <- getLine
+                file <- readFile "tree.txt"
+                fileA <- readFile fileName
+                print fileA
+                let a = parse file
+                    b = find(fileA,a,a,"")
+                  in print b
+                putStrLn "... Aperte enter para retornar ao menu principal"
+                getLine
+                main
+              exception erro = if isDoesNotExistError erro
+                      then do
+                        putStrLn "Arquivo não encontrado";
+                        encode
+              else ioError erro
