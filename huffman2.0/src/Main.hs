@@ -27,9 +27,7 @@ encode = do
                     fileName <- getLine
                     file <- readFile fileName
                     let list = buildTree (sortingList (elementFrequency file))
-                    print list
                     let lettersCode = findLetterCode list ""
-                    print lettersCode
                     putStrLn "Digite o nome do arquivo de saida"
                     fileNameOut <- getLine
                     writeCodeInFile file fileNameOut lettersCode (show(list) ++ "\n")
@@ -50,16 +48,15 @@ decode = do
               tryRead = do
                 putStrLn "Digite o nome do arquivo a ser decodificado";
                 fileName <- getLine
-                file <- readFile "tree.txt"
                 fileA <- readFile fileName
-                let fileLines = lines fileA
+                let fileLines = lines fileA -- the first line is the tree and the last is the code
                     tree = head fileLines
                     code = last fileLines
-                print fileLines
-                print tree
                 let a = parse tree
                     b = find(code,a,a,"")
-                  in print b
+                putStrLn "Digite o nome do arquivo de saida"
+                fileNameOut <- getLine
+                writeDecode fileNameOut b
                 putStrLn "... Aperte enter para retornar ao menu principal"
                 getLine
                 main

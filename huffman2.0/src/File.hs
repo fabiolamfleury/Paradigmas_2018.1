@@ -22,3 +22,6 @@ writeTree a = writeFile "tree.txt" c
 -- Convert String in file in a HuffTree
 parse :: [Char] -> HuffTree
 parse a = read a :: HuffTree
+
+writeDecode :: String -> String -> IO()
+writeDecode text file = writeFile text file
