@@ -3,12 +3,14 @@ import System.IO (readFile, hClose)
 import Control.Exception
 import System.IO.Error
 import Data.Function
+import System.Console.ANSI
 import Huffman
 import File
 
 -- Main menu that let user choose between compressing and decompressing files
 main :: IO ()
-main = do  putStrLn "Menu Principal Huffman  ";
+main = do clearScreen
+          putStrLn "============= Menu Principal Huffman =============";
             putStrLn "\t1 - Quero comprimir meu arquivo";
             putStrLn "\t2 - Quero descomprimir meu arquivo";
             putStrLn "\t3 - Quero sair do programa";
@@ -16,6 +18,7 @@ main = do  putStrLn "Menu Principal Huffman  ";
             case opcao of
                  "1" -> encode;
                  "2" -> decode;
+                 otherwise -> print "Tchau!"
 
  -- User chooses file to be compressed
 encode :: IO ()
@@ -23,6 +26,8 @@ encode = do
             {catch (tryRead) exception;}
             where
                   tryRead = do
+                    clearScreen
+                    putStrLn "============= Codificar Arquivo ============="
                     putStrLn "Digite o nome do arquivo";
                     fileName <- getLine
                     file <- readFile fileName
@@ -37,8 +42,11 @@ encode = do
                     main
                   exception erro = if isDoesNotExistError erro
                           then do
-                            putStrLn "Arquivo não encontrado";
-                            encode
+                            putStrLn "Arquivo não encontrado. Digite 1 para escolher outro arquivo ou 2 para voltar ao menu";
+                            opcao<-getLine
+                            case opcao of
+                              "1" -> encode
+                              otherwise -> main
                   else ioError erro
 
 decode :: IO()
@@ -46,6 +54,8 @@ decode = do
             {catch (tryRead) exception;}
             where
               tryRead = do
+                clearScreen
+                putStrLn "============= Decodificar Arquivo ============="
                 putStrLn "Digite o nome do arquivo a ser decodificado";
                 fileName <- getLine
                 fileA <- readFile fileName
@@ -62,6 +72,9 @@ decode = do
                 main
               exception erro = if isDoesNotExistError erro
                       then do
-                        putStrLn "Arquivo não encontrado";
-                        encode
+                        putStrLn "Arquivo não encontrado. Digite 1 para escolher outro arquivo ou 2 para voltar ao menu";
+                        opcao<-getLine
+                        case opcao of
+                          "1" -> decode
+                          otherwise -> main
               else ioError erro
