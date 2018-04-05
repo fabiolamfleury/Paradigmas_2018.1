@@ -36,7 +36,6 @@ encode = do
                     putStrLn "Digite o nome do arquivo de saida"
                     fileNameOut <- getLine
                     writeCodeInFile file fileNameOut lettersCode (show(list) ++ "\n")
-                    writeTree list
                     putStrLn "... Aperte enter para retornar ao menu principal"
                     getLine
                     main

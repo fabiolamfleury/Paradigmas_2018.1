@@ -14,11 +14,6 @@ writeCodeInFile fileToBeCompressed fileNameOut lettersCode fileCode = do
   let letterCode = fromMaybe "" ((lookup (head fileToBeCompressed) lettersCode))
   writeCodeInFile (tail fileToBeCompressed) fileNameOut lettersCode (fileCode ++ letterCode)
 
-
-writeTree :: HuffTree -> IO()
-writeTree a = writeFile "tree.txt" c
-                  where c = show(a)
-
 -- Convert String in file in a HuffTree
 parse :: [Char] -> HuffTree
 parse a = read a :: HuffTree
