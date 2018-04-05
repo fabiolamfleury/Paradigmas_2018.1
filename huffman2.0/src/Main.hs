@@ -32,7 +32,7 @@ encode = do
                     print lettersCode
                     putStrLn "Digite o nome do arquivo de saida"
                     fileNameOut <- getLine
-                    writeCodeInFile file fileNameOut lettersCode ""
+                    writeCodeInFile file fileNameOut lettersCode (show(list) ++ "\n")
                     writeTree list
                     putStrLn "... Aperte enter para retornar ao menu principal"
                     getLine
@@ -52,9 +52,13 @@ decode = do
                 fileName <- getLine
                 file <- readFile "tree.txt"
                 fileA <- readFile fileName
-                print fileA
-                let a = parse file
-                    b = find(fileA,a,a,"")
+                let fileLines = lines fileA
+                    tree = head fileLines
+                    code = last fileLines
+                print fileLines
+                print tree
+                let a = parse tree
+                    b = find(code,a,a,"")
                   in print b
                 putStrLn "... Aperte enter para retornar ao menu principal"
                 getLine
