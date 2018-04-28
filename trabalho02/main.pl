@@ -3,29 +3,30 @@
 /*o certo vai ser entrar como o nome do personagem só esta
 com numero pra ajudar no desenvolvimento.*/
 
-champName:-tab(15),write('Digite o numero do personagem'),nl,nl,
+champName(Z):-tab(15),write('Digite o numero do personagem'),nl,nl,
            read(YourChamp),
            champ(Y,YourChamp),
            write('Voce escolheu o personagem: '),
+           Z = Y,
            write(Y),
-           write('\n').
+           write('\n'),
            write('\n').
 
-opponentInLane:-tab(15),write('Digite o numero do oponente'),nl,nl,
+opponentInLane(U):-tab(15),write('Digite o numero do oponente'),nl,nl,
                       read(YourChamp),
                       champ(Y,YourChamp),
                       write('Voce escolheu o personagem: '),
+                      U = Y,
                       write(Y),
-                      write('\n').
+                      write('\n'),
                       write('\n').
 
 
-lanePlayed:-tab(15),write('Qual lane deseja jogar'),nl,nl,
+lanePlayed(W):-tab(15),write('Qual lane deseja jogar'),nl,nl,
                 read(LaneGame),
-                lane(LaneGame),
-                write('A lane escolhida foi '),
-                write(LaneGame),
-                write('\n').
-                write('\n').
+                W = LaneGame.
 
-menu:-champName,opponentInLane,lanePlayed.
+menu:-champName(Z),opponentInLane(U),lanePlayed(W),influenceInLane(W,A,B,C),
+                                     write(A),write(" "),
+                                     write(B),write(" "),
+                                     write(C),write(" ").

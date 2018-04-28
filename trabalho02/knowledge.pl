@@ -29,7 +29,7 @@ lane(top).
 lane(jungle).
 
 /*Influence in lanes*/
-influencyInLane(top,mid,jungle).
-influencyInLane(mid,top,suport).
-influencyInLane(bot,top,mid).
-influencyInLane(jungle,top,mid,bot).
+influenceInLane(top,mid,jungle,_).
+influenceInLane(mid,jungle,top,suport).
+influenceInLane(bot,top,jungle,mid).
+influenceInLane(jungle,top,mid,bot).
