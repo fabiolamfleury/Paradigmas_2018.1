@@ -15,4 +15,9 @@ import_stats2:-
     csv_read_file('knowledgeBase/stats2.csv', Stats2Data, [functor(stats)]),
     maplist(assert, Stats2Data).
 
+lane(bot).
+lane(mid).
+lane(top).
+lane(jungle).
+
 import_data:- import_champs(), import_participants(), import_stats1(), import_stats2().
