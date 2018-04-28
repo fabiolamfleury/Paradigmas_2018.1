@@ -15,7 +15,7 @@ champName(Z):-tab(15),write('Digite o numero do personagem'),nl,nl,
 opponentInLane(U):-tab(15),write('Digite o numero do oponente'),nl,nl,
                       read(YourChamp),
                       champ(Y,YourChamp),
-                      write('Voce escolheu o personagem: '),
+                      write('Voce ira enfrentar o personagem: '),
                       U = Y,
                       write(Y),
                       write('\n'),
@@ -24,7 +24,11 @@ opponentInLane(U):-tab(15),write('Digite o numero do oponente'),nl,nl,
 
 lanePlayed(W):-tab(15),write('Qual lane deseja jogar'),nl,nl,
                 read(LaneGame),
-                W = LaneGame.
+                W = LaneGame,
+                write('Voce escolheu a lane: '),
+                write(W),
+                write('\n'),
+                write('\n').
 
 menu:-champName(Z),opponentInLane(U),lanePlayed(W),influenceInLane(W,A,B,C),
                                      write(A),write(" "),
