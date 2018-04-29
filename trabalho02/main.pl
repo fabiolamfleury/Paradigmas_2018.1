@@ -1,23 +1,21 @@
 :-consult('knowledge.pl').
 
-/*o certo vai ser entrar como o nome do personagem só esta
-com numero pra ajudar no desenvolvimento.*/
-
-champName(Z):-tab(15),write('Digite o numero do personagem'),nl,nl,
+/*O nome do personagem deve ser escrito entre ''*/
+champName(Z):-tab(15),write('Digite o nome do personagem'),nl,nl,
            read(YourChamp),
-           champ(Y,YourChamp),
+           champ(YourChamp,_),
            write('Voce escolheu o personagem: '),
-           Z = Y,
-           write(Y),
+           Z = YourChamp,
+           write(Z),
            write('\n'),
            write('\n').
 
-opponentInLane(U):-tab(15),write('Digite o numero do oponente'),nl,nl,
+opponentInLane(U):-tab(15),write('Digite o nome do oponente'),nl,nl,
                       read(YourChamp),
-                      champ(Y,YourChamp),
+                      champ(YourChamp,_),
                       write('Voce ira enfrentar o personagem: '),
-                      U = Y,
-                      write(Y),
+                      U = YourChamp,
+                      write(U),
                       write('\n'),
                       write('\n').
 
@@ -30,7 +28,18 @@ lanePlayed(W):-tab(15),write('Qual lane deseja jogar'),nl,nl,
                 write('\n'),
                 write('\n').
 
-menu:-champName(Z),opponentInLane(U),lanePlayed(W),influenceInLane(W,A,B,C),
-                                     write(A),write(" "),
-                                     write(B),write(" "),
-                                     write(C),write(" ").
+enemyTeam(A,EnemyLaneA) :-
+                    tab(15),write(A),write(' inimigo'),nl,nl,
+                    read(Aa),
+                    champ(Aa,_),
+                    EnemyLaneA = Aa,
+                    write('Inimigo no: '),write(A),write(" "),
+                    write(EnemyLaneA),
+                    write('\n'),
+                    write('\n').
+
+menu:-champName(Z),opponentInLane(U),
+                   lanePlayed(W),influenceInLane(W,A,B,C),
+                   enemyTeam(A,EnemyLaneA),
+                   enemyTeam(B,EnemyLaneB),
+                   enemyTeam(C,EnemyLaneC).
