@@ -28,18 +28,17 @@ lanePlayed(W):-tab(15),write('Qual lane deseja jogar'),nl,nl,
                 write('\n'),
                 write('\n').
 
-enemyTeam(A,EnemyLaneA) :-
+enemyTeam( [A | B ],EnemyInLane) :-
                     tab(15),write(A),write(' inimigo'),nl,nl,
                     read(Aa),
                     champ(Aa,_),
-                    EnemyLaneA = Aa,
+                    EnemyInLane = Aa,
                     write('Inimigo no: '),write(A),write(" "),
-                    write(EnemyLaneA),
+                    write(EnemyInLane),
                     write('\n'),
-                    write('\n').
+                    write('\n'),
+                    enemyTeam(B, NewEnemyInLane).
 
 menu:-champName(Z),opponentInLane(U),
-                   lanePlayed(W),influenceInLane(W,A,B,C),
-                   enemyTeam(A,EnemyLaneA),
-                   enemyTeam(B,EnemyLaneB),
-                   enemyTeam(C,EnemyLaneC).
+                   lanePlayed(W),findall(InfluencedBy,influenceInLane(W, InfluencedBy),L),
+                   enemyTeam(L,EnemyInLane).

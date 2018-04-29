@@ -23,13 +23,20 @@ import_stats2:-
 import_data:- import_champs(), import_participants(), import_stats1(), import_stats2().
 
 /*lanes game*/
-lane(bot).
-lane(mid).
-lane(top).
-lane(jungle).
+lane('BOT').
+lane('MID').
+lane('TOP').
+lane('JUNGLE').
 
 /*Influence in lanes*/
-influenceInLane(top,mid,jungle,suport).
-influenceInLane(mid,jungle,top,suport).
-influenceInLane(bot,top,jungle,mid).
-influenceInLane(jungle,top,mid,bot).
+influenceInLane('TOP','MID'). % top influences mid
+influenceInLane('TOP','JUNGLE').
+influenceInLane('MID','JUNGLE').
+influenceInLane('MID','TOP').
+influenceInLane('MID','SUPPORT').
+influenceInLane('BOT','TOP').
+influenceInLane('BOT','MID').
+influenceInLane('BOT','JUNGLE').
+influenceInLane('JUNGLE','TOP').
+influenceInLane('JUNGLE','MID').
+influenceInLane('JUNGLE','BOT').
