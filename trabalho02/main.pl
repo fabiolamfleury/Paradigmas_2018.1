@@ -1,20 +1,23 @@
 :-consult('knowledge.pl').
+:-consult('definitionsOfRecommendations.pl').
 
 /*O nome do personagem deve ser escrito entre ''*/
-champName(Z):-tab(15),write('Digite o nome do personagem'),nl,nl,
+champName(Z,Id):-tab(15),write('Digite o nome do personagem'),nl,nl,
            read(YourChamp),
-           champ(YourChamp,_),
+           champ(YourChamp,ChampId),
            write('Voce escolheu o personagem: '),
            Z = YourChamp,
+           Id = ChampId,
            write(Z),
            write('\n'),
            write('\n').
 
-opponentInLane(U):-tab(15),write('Digite o nome do oponente'),nl,nl,
+opponentInLane(U,IdEnemy):-tab(15),write('Digite o nome do oponente'),nl,nl,
                       read(YourChamp),
-                      champ(YourChamp,_),
+                      champ(YourChamp,ChampIdEnemy),
                       write('Voce ira enfrentar o personagem: '),
                       U = YourChamp,
+                      IdEnemy = ChampIdEnemy,
                       write(U),
                       write('\n'),
                       write('\n').
@@ -41,7 +44,8 @@ getFirstElement([A,_,_],Return):-Return = A.
 getSecondElement([_,A,_],Return):-Return = A.
 getThirdElement([_,_,A],Return):-Return = A.
 
-menu:-champName(Z),opponentInLane(U),
+menu:-champName(Z,Id),opponentInLane(U,IdEnemy),
                    lanePlayed(W),findall(InfluencedBy,influenceInLane(W, InfluencedBy),L),
                    getFirstElement(L,Lane1),getSecondElement(L,Lane2),getThirdElement(L,Lane3),
-                   enemyTeam(Lane1,EnemyInLane1),enemyTeam(Lane2,EnemyInLane2),enemyTeam(Lane3,EnemyInLane3).
+                   enemyTeam(Lane1,EnemyInLane1),enemyTeam(Lane2,EnemyInLane2),enemyTeam(Lane3,EnemyInLane3),
+                   findParticipants(Id,W).
