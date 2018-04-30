@@ -29,7 +29,7 @@ lane('TOP').
 lane('JUNGLE').
 
 /*Influence in lanes*/
-influenceInLane('TOP','MID'). % top influences mid
+influenceInLane('TOP','MID'). % top influenced by mid
 influenceInLane('TOP','JUNGLE').
 influenceInLane('MID','JUNGLE').
 influenceInLane('MID','TOP').

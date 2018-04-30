@@ -31,7 +31,9 @@ lanePlayed(W):-tab(15),write('Qual lane deseja jogar'),nl,nl,
 enemyTeam( [A | B ],EnemyInLane) :-
                     tab(15),write(A),write(' inimigo'),nl,nl,
                     read(Aa),
-                    champ(Aa,_),
+                    champ(Aa,ChampID),
+                    findall(IdStats, participant(IdStats, _ , ChampID, _,A),L),
+                %TODO: criar um functor  enemy(L), que guarda a lista criada
                     EnemyInLane = Aa,
                     write('Inimigo no: '),write(A),write(" "),
                     write(EnemyInLane),
