@@ -14,14 +14,15 @@ findChampsInSameMatch(L1,L2,L3):-intersec(L1,L2,L3),!.
 /*Matches4 é lista com os matchs ID da composição selecionada
 Stats é a lista com os idStats*/
 
-findParticipants(ChampId,Lane,EnemyId):-findall(MatchId,participant(_,MatchId,114,_,Lane),Lista),
-                                        findall(MatchId2,participant(_,MatchId2,24,_,Lane),Lista2),
+findParticipants(ChampId,Lane,EnemyId,Lane1,EnemyInLane1,Lane2,EnemyInLane2,Lane3,EnemyInLane3):-
+                                        findall(MatchId,participant(_,MatchId,ChampId,_,Lane),Lista),
+                                        findall(MatchId2,participant(_,MatchId2,EnemyId,_,Lane),Lista2),
                                         findChampsInSameMatch(Lista,Lista2,Matches1),
-                                        findall(MatchId3,participant(_,MatchId3,121,_,'JUNGLE'),Lista3),
+                                        findall(MatchId3,participant(_,MatchId3,EnemyInLane1,_,Lane1),Lista3),
                                         findChampsInSameMatch(Lista3,Matches1,Matches2),
-                                        findall(MatchId4,participant(_,MatchId4,161,_,'MID'),Lista4),
+                                        findall(MatchId4,participant(_,MatchId4,EnemyInLane2,_,Lane2),Lista4),
                                         findChampsInSameMatch(Matches2,Lista4,Matches3),
-                                        findall(MatchId5,participant(_,MatchId5,44,_,'BOT'),Lista5),
+                                        findall(MatchId5,participant(_,MatchId5,EnemyInLane3,_,Lane3),Lista5),
                                         findChampsInSameMatch(Matches3,Lista5,Matches4),
                                         getStats(Matches4,[],Stats),write(Stats).
 

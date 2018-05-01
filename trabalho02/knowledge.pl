@@ -31,10 +31,10 @@ lane('JUNGLE').
 /*Influence in lanes*/
 influenceInLane('TOP','MID'). % top influenced by mid
 influenceInLane('TOP','JUNGLE').
-influenceInLane('TOP','SUPPORT').
+influenceInLane('TOP','BOT').
 influenceInLane('MID','JUNGLE').
 influenceInLane('MID','TOP').
-influenceInLane('MID','SUPPORT').
+influenceInLane('MID','BOT').
 influenceInLane('BOT','TOP').
 influenceInLane('BOT','MID').
 influenceInLane('BOT','JUNGLE').

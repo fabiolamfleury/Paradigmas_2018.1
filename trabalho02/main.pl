@@ -33,8 +33,8 @@ lanePlayed(W):-tab(15),write('Qual lane deseja jogar'),nl,nl,
 
 enemyTeam(Lane,EnemyInLane):-tab(15),write(Lane),write(' inimigo'),nl,nl,
                               read(Aa),
-                              champ(Aa,_),
-                              EnemyInLane = Aa,
+                              champ(Aa,IdEnemy),
+                              EnemyInLane = IdEnemy,
                               write('Inimigo no: '),write(Lane),write(" "),
                               write(EnemyInLane),
                               write('\n'),
@@ -44,8 +44,12 @@ getFirstElement([A,_,_],Return):-Return = A.
 getSecondElement([_,A,_],Return):-Return = A.
 getThirdElement([_,_,A],Return):-Return = A.
 
-menu:-champName(Z,Id),opponentInLane(U,IdEnemy),
-                   lanePlayed(W),findall(InfluencedBy,influenceInLane(W, InfluencedBy),L),
+menu:-champName(Z,ChampSelect),opponentInLane(U,IdEnemy),
+                   lanePlayed(SelectLane),findall(InfluencedBy,influenceInLane(SelectLane, InfluencedBy),L),
+                   write(L),
+                   /*Pega as lanes*/
                    getFirstElement(L,Lane1),getSecondElement(L,Lane2),getThirdElement(L,Lane3),
+                   /*Pega os oponents nas lanes*/
                    enemyTeam(Lane1,EnemyInLane1),enemyTeam(Lane2,EnemyInLane2),enemyTeam(Lane3,EnemyInLane3),
-                   findParticipants(Id,W).
+                   /*Procura todas as partidas que tem a configuração de entrada*/
+                   findParticipants(ChampSelect,SelectLane,IdEnemy,Lane1,EnemyInLane1,Lane2,EnemyInLane2,Lane3,EnemyInLane3).
