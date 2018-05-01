@@ -46,7 +46,6 @@ getThirdElement([_,_,A],Return):-Return = A.
 
 menu:-champName(Z,ChampSelect),opponentInLane(U,IdEnemy),
                    lanePlayed(SelectLane),findall(InfluencedBy,influenceInLane(SelectLane, InfluencedBy),L),
-                   write(L),
                    /*Pega as lanes*/
                    getFirstElement(L,Lane1),getSecondElement(L,Lane2),getThirdElement(L,Lane3),
                    /*Pega os oponents nas lanes*/
