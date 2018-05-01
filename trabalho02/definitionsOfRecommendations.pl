@@ -3,12 +3,16 @@
 intersec([], _, []).
 intersec([H1|T1], L2, [H1|Res]) :-
                     member(H1, L2), intersec(T1, L2, Res).
-
 intersec([_|T1], L2, Res) :-
               intersec(T1, L2, Res).
 
+
 findChampsInSameMatch(L1,L2,L3):-intersec(L1,L2,L3),!.
 
+
+
+/*Matches4 é lista com os matchs ID da composição selecionada
+Stats é a lista com os idStats*/
 
 findParticipants(ChampId,Lane,EnemyId):-findall(MatchId,participant(_,MatchId,114,_,Lane),Lista),
                                         findall(MatchId2,participant(_,MatchId2,24,_,Lane),Lista2),
@@ -18,4 +22,11 @@ findParticipants(ChampId,Lane,EnemyId):-findall(MatchId,participant(_,MatchId,11
                                         findall(MatchId4,participant(_,MatchId4,161,_,'MID'),Lista4),
                                         findChampsInSameMatch(Matches2,Lista4,Matches3),
                                         findall(MatchId5,participant(_,MatchId5,44,_,'BOT'),Lista5),
-                                        findChampsInSameMatch(Matches3,Lista5,Matches4), write(Matches4).
+                                        findChampsInSameMatch(Matches3,Lista5,Matches4),
+                                        getStats(Matches4,[],Stats),write(Stats).
+
+
+getStats([],L2,Return):-append([],L2,Return).
+getStats([H|T],L2,Return):-findall(IdStats,participant(IdStats,H,_,_,_),L),
+                              append(L,L2,Result),
+                              getStats(T,Result,Return).
