@@ -7,28 +7,49 @@ intersec([_|T1], L2, Res) :-
               intersec(T1, L2, Res).
 
 
-findChampsInSameMatch(L1,L2,L3):-intersec(L1,L2,L3),!.
+find_champs_in_same_match(L1,L2,L3):-intersec(L1,L2,L3),!.
 
-takeListTail([ _ | Tail], Return):- Return = Tail.
+take_list_tail([ _ | Tail], Return):- Return = Tail.
 
-findParticipant([LaneH|LaneT], [ParticipantH|ParticipantT]):-
+find_participant([LaneH|LaneT], [ParticipantH|ParticipantT]):-
   findall(MatchId,participant(_,MatchId,ParticipantH,_,LaneH),Lista),
   nth0(0, ParticipantT, Part),
   nth0(0, LaneT, PartLane),
   findall(MatchId2,participant(_,MatchId2,Part,_,PartLane),Lista2),
-  findChampsInSameMatch(Lista,Lista2,Matches1),
-  takeListTail(LaneT, LaneNext),
-  takeListTail(ParticipantT, EnemyNext),
-  findParticipants(LaneNext, EnemyNext, Matches1).
+  find_champs_in_same_match(Lista,Lista2,Matches1),
+  take_list_tail(LaneT, LaneNext),
+  take_list_tail(ParticipantT, EnemyNext),
+  find_participants(LaneNext, EnemyNext, Matches1).
 
 /*Matches4 é lista com os matchs ID da composição selecionada
 Stats é a lista com os idStats*/
-findParticipants([],_, Answer):-getStats(Answer,[],Stats),write(Stats).
-findParticipants([LaneH|LaneT], [EnemyH|EnemyT], Answer):-
+find_participants([],_, Answer):-getStats(Answer,[],Stats),
+                                write(Stats),
+                                write('\n'),
+                                write(Answer),
+                                %TODO: Criar varias listas de 10 elementos, para depois serem divididos em dois times
+                                Team1 = [],
+                                Team2 = [],
+                                group_by_team(Answer, Stats, Team1, Team2).
+find_participants([LaneH|LaneT], [EnemyH|EnemyT], Answer):-
                                         findall(MatchIds,participant(_,MatchIds,EnemyH,_,LaneH),List),
-                                        findChampsInSameMatch(List,Answer,NewAnswer),
-                                        findParticipants(LaneT, EnemyT, NewAnswer).
+                                        find_champs_in_same_match(List,Answer,NewAnswer),
+                                        find_participants(LaneT, EnemyT, NewAnswer).
 
+append_team(Team, Participant, NewTeam):- append(Team, [Participant], NewTeam).
+
+separate_team(Id, Team1, Team2) :-
+  TeamA = Team1, TeamB = Team2,
+  stats(Id, Win),
+    (  Win =:= 1
+        -> append_team(TeamA, Id, Team1)
+        ;  append_team(TeamB, Id, Team2)
+     ).
+
+group_by_team([], _, _, _).
+group_by_team([MatcheshHead | MatchesTail], [], _, _).
+group_by_team(Matches, Participants, Team1, Team2):-Team1 = [],
+                                    Team2 = [].
 
 getStats([],L2,Return):-append([],L2,Return).
 getStats([H|T],L2,Return):-findall(IdStats,participant(IdStats,H,_,_,_),L),

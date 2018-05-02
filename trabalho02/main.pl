@@ -2,51 +2,51 @@
 :-consult('definitionsOfRecommendations.pl').
 
 /*O nome do personagem deve ser escrito entre ''*/
-champName(Z,Id):-tab(15),write('Digite o nome do personagem'),nl,nl,
+champ_name(Z,Id):-tab(15),write('Digite o nome do personagem'),nl,nl,
            read(YourChamp),
            champ(YourChamp,ChampId),
            write('Voce escolheu o personagem: '),
            Z = YourChamp,
            Id = ChampId,
            write(Z),
-           write('\n'),
-           write('\n').
+           nl,
+           nl.
 
-opponentInLane(U,IdEnemy):-tab(15),write('Digite o nome do oponente'),nl,nl,
+opponent_in_lane(U,IdEnemy):-tab(15),write('Digite o nome do oponente'),nl,nl,
                       read(YourChamp),
                       champ(YourChamp,ChampIdEnemy),
                       write('Voce ira enfrentar o personagem: '),
                       U = YourChamp,
                       IdEnemy = ChampIdEnemy,
                       write(U),
-                      write('\n'),
-                      write('\n').
+                      nl,
+                      nl.
 
 
-lanePlayed(W):-tab(15),write('Qual lane deseja jogar'),nl,nl,
+lane_played(W):-tab(15),write('Qual lane deseja jogar'),nl,nl,
                 read(LaneGame),
                 write('Voce escolheu a lane: '),
                 W = LaneGame,
                 write(W),
-                write('\n'),
-                write('\n').
+                nl,
+                nl.
 
-enemyTeam(Lane,EnemyInLane):-tab(15),write(Lane),write(' inimigo'),nl,nl,
+enemy_team(Lane,EnemyInLane):-tab(15),write(Lane),write(' inimigo'),nl,nl,
                               read(Aa),
                               champ(Aa,IdEnemy),
                               EnemyInLane = IdEnemy,
                               write('Inimigo no: '),write(Lane),write(" "),
                               write(EnemyInLane),
-                              write('\n'),
-                              write('\n').
+                              nl,
+                              nl.
 
 createEmptyList(List):-List = [X, Y, Z].
 
 enemies([],_).
-enemies([LaneH|LaneT], [EnemyH|EnemyT]) :- enemyTeam(LaneH, EnemyH), enemies(LaneT, EnemyT).
+enemies([LaneH|LaneT], [EnemyH|EnemyT]) :- enemy_team(LaneH, EnemyH), enemies(LaneT, EnemyT).
 
-menu:-champName(Z,ChampSelect),opponentInLane(U,IdEnemy),
-                   lanePlayed(SelectLane),findall(InfluencedBy,influenceInLane(SelectLane, InfluencedBy),Lanes),
+menu:-champ_name(Z,ChampSelect),opponent_in_lane(U,IdEnemy),
+                   lane_played(SelectLane),findall(InfluencedBy,influence_in_lane(SelectLane, InfluencedBy),Lanes),
                    /*Pega as lanes*/
                    createEmptyList(Enemies),
                    /*Pega os oponents nas lanes*/
@@ -54,4 +54,4 @@ menu:-champName(Z,ChampSelect),opponentInLane(U,IdEnemy),
                    append([SelectLane, SelectLane],Lanes,AllLanes),
                    append([ChampSelect, IdEnemy],Enemies,AllChamps),
                    /*Procura todas as partidas que tem a configuração de entrada*/
-                   findParticipant(AllLanes, AllChamps).
+                   find_participant(AllLanes, AllChamps).

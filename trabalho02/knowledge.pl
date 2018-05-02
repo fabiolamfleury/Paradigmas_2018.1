@@ -29,15 +29,15 @@ lane('TOP').
 lane('JUNGLE').
 
 /*Influence in lanes*/
-influenceInLane('TOP','MID'). % top influenced by mid
-influenceInLane('TOP','JUNGLE').
-influenceInLane('TOP','BOT').
-influenceInLane('MID','JUNGLE').
-influenceInLane('MID','TOP').
-influenceInLane('MID','BOT').
-influenceInLane('BOT','TOP').
-influenceInLane('BOT','MID').
-influenceInLane('BOT','JUNGLE').
-influenceInLane('JUNGLE','TOP').
-influenceInLane('JUNGLE','MID').
-influenceInLane('JUNGLE','BOT').
+influence_in_lane('TOP','MID'). % top influenced by mid
+influence_in_lane('TOP','JUNGLE').
+influence_in_lane('TOP','BOT').
+influence_in_lane('MID','JUNGLE').
+influence_in_lane('MID','TOP').
+influence_in_lane('MID','BOT').
+influence_in_lane('BOT','TOP').
+influence_in_lane('BOT','MID').
+influence_in_lane('BOT','JUNGLE').
+influence_in_lane('JUNGLE','TOP').
+influence_in_lane('JUNGLE','MID').
+influence_in_lane('JUNGLE','BOT').
