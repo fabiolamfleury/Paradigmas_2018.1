@@ -28,23 +28,31 @@ find_participants([],_, Answer):-getStats(Answer,[],Stats),
                                 write('\n'),
                                 write(Answer),
                                 %TODO: Criar varias listas de 10 elementos, para depois serem divididos em dois times
-                                Team1 = [],
-                                Team2 = [],
-                                group_by_team(Answer, Stats, Team1, Team2).
+                                div(Stats, Team1, Team2),
+                                write('Time vencedor: '),
+                                write(Team1),
+                                nl,
+                                write_result(Team1),
+                                write('Time perdedor: '),
+                                write_result(Team2),
+                                write(Team2),
+                                nl.
 find_participants([LaneH|LaneT], [EnemyH|EnemyT], Answer):-
                                         findall(MatchIds,participant(_,MatchIds,EnemyH,_,LaneH),List),
                                         find_champs_in_same_match(List,Answer,NewAnswer),
                                         find_participants(LaneT, EnemyT, NewAnswer).
 
-append_team(Team, Participant, NewTeam):- append(Team, [Participant], NewTeam).
+write_result([]).
+write_result([Head | Tail]):- stats(Head, Win),
+                              write(Win),
+                              nl,
+                              write_result(Tail).
 
-separate_team(Id, Team1, Team2) :-
-  TeamA = Team1, TeamB = Team2,
-  stats(Id, Win),
-    (  Win =:= 1
-        -> append_team(TeamA, Id, Team1)
-        ;  append_team(TeamB, Id, Team2)
-     ).
+div(L, A, B) :-
+    append(A, B, L),
+    length(A, 5),
+    length(B, 5).
+
 
 group_by_team([], _, _, _).
 group_by_team([MatcheshHead | MatchesTail], [], _, _).
