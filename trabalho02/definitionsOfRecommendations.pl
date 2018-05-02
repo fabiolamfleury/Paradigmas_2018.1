@@ -9,22 +9,25 @@ intersec([_|T1], L2, Res) :-
 
 findChampsInSameMatch(L1,L2,L3):-intersec(L1,L2,L3),!.
 
+takeListTail([ _ | Tail], Return):- Return = Tail.
 
+findParticipant([LaneH|LaneT], [ParticipantH|ParticipantT]):-
+  findall(MatchId,participant(_,MatchId,ParticipantH,_,LaneH),Lista),
+  nth0(0, ParticipantT, Part),
+  nth0(0, LaneT, PartLane),
+  findall(MatchId2,participant(_,MatchId2,Part,_,PartLane),Lista2),
+  findChampsInSameMatch(Lista,Lista2,Matches1),
+  takeListTail(LaneT, LaneNext),
+  takeListTail(ParticipantT, EnemyNext),
+  findParticipants(LaneNext, EnemyNext, Matches1).
 
 /*Matches4 é lista com os matchs ID da composição selecionada
 Stats é a lista com os idStats*/
-
-findParticipants(ChampId,Lane,EnemyId,Lane1,EnemyInLane1,Lane2,EnemyInLane2,Lane3,EnemyInLane3):-
-                                        findall(MatchId,participant(_,MatchId,ChampId,_,Lane),Lista),
-                                        findall(MatchId2,participant(_,MatchId2,EnemyId,_,Lane),Lista2),
-                                        findChampsInSameMatch(Lista,Lista2,Matches1),
-                                        findall(MatchId3,participant(_,MatchId3,EnemyInLane1,_,Lane1),Lista3),
-                                        findChampsInSameMatch(Lista3,Matches1,Matches2),
-                                        findall(MatchId4,participant(_,MatchId4,EnemyInLane2,_,Lane2),Lista4),
-                                        findChampsInSameMatch(Matches2,Lista4,Matches3),
-                                        findall(MatchId5,participant(_,MatchId5,EnemyInLane3,_,Lane3),Lista5),
-                                        findChampsInSameMatch(Matches3,Lista5,Matches4),
-                                        getStats(Matches4,[],Stats),write(Stats).
+findParticipants([],_, Answer):-getStats(Answer,[],Stats),write(Stats).
+findParticipants([LaneH|LaneT], [EnemyH|EnemyT], Answer):-
+                                        findall(MatchIds,participant(_,MatchIds,EnemyH,_,LaneH),List),
+                                        findChampsInSameMatch(List,Answer,NewAnswer),
+                                        findParticipants(LaneT, EnemyT, NewAnswer).
 
 
 getStats([],L2,Return):-append([],L2,Return).

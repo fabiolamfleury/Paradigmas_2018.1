@@ -40,15 +40,18 @@ enemyTeam(Lane,EnemyInLane):-tab(15),write(Lane),write(' inimigo'),nl,nl,
                               write('\n'),
                               write('\n').
 
-getFirstElement([A,_,_],Return):-Return = A.
-getSecondElement([_,A,_],Return):-Return = A.
-getThirdElement([_,_,A],Return):-Return = A.
+createEmptyList(List):-List = [X, Y, Z].
+
+enemies([],_).
+enemies([LaneH|LaneT], [EnemyH|EnemyT]) :- enemyTeam(LaneH, EnemyH), enemies(LaneT, EnemyT).
 
 menu:-champName(Z,ChampSelect),opponentInLane(U,IdEnemy),
-                   lanePlayed(SelectLane),findall(InfluencedBy,influenceInLane(SelectLane, InfluencedBy),L),
+                   lanePlayed(SelectLane),findall(InfluencedBy,influenceInLane(SelectLane, InfluencedBy),Lanes),
                    /*Pega as lanes*/
-                   getFirstElement(L,Lane1),getSecondElement(L,Lane2),getThirdElement(L,Lane3),
+                   createEmptyList(Enemies),
                    /*Pega os oponents nas lanes*/
-                   enemyTeam(Lane1,EnemyInLane1),enemyTeam(Lane2,EnemyInLane2),enemyTeam(Lane3,EnemyInLane3),
+                   enemies(Lanes, Enemies),
+                   append([SelectLane, SelectLane],Lanes,AllLanes),
+                   append([ChampSelect, IdEnemy],Enemies,AllChamps),
                    /*Procura todas as partidas que tem a configuração de entrada*/
-                   findParticipants(ChampSelect,SelectLane,IdEnemy,Lane1,EnemyInLane1,Lane2,EnemyInLane2,Lane3,EnemyInLane3).
+                   findParticipant(AllLanes, AllChamps).
