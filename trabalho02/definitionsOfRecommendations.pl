@@ -30,12 +30,12 @@ find_participants([],_, Answer):-getStats(Answer,[],Stats),
                                 %TODO: Criar varias listas de 10 elementos, para depois serem divididos em dois times
                                 div(Stats, Team1, Team2),
                                 write('Time vencedor: '),
-                                write(Team1),
                                 nl,
-                                write_result(Team1),
+                                write_team(Team1),
+                                nl,
                                 write('Time perdedor: '),
-                                write_result(Team2),
-                                write(Team2),
+                                nl,
+                                write_team(Team2),
                                 b_getval(selectLanes, Lanes),
                                 write(Lanes),
                                 b_getval(selectChamps, Champs),
@@ -46,22 +46,24 @@ find_participants([LaneH|LaneT], [EnemyH|EnemyT], Answer):-
                                         find_champs_in_same_match(List,Answer,NewAnswer),
                                         find_participants(LaneT, EnemyT, NewAnswer).
 
-write_result([]).
-write_result([Head | Tail]):- stats(Head, Win),
-                              write(Win),
-                              nl,
-                              write_result(Tail).
-
 div(L, A, B) :-
     append(A, B, L),
     length(A, 5),
     length(B, 5).
 
+write_team([]).
+write_team([Head | Tail]):- participant(Head, IdMatch, ChampionId, Role, Position),
+                            champ(Champion, ChampionId),
+                            write('Champion: '),
+                            write(Champion),
+                            write('\t Role: '),
+                            write(Role),
+                            write('\tPosition: '),
+                            write(Position),
+                            nl,
+                            write_team(Tail).
 
-group_by_team([], _, _, _).
-group_by_team([MatcheshHead | MatchesTail], [], _, _).
-group_by_team(Matches, Participants, Team1, Team2):-Team1 = [],
-                                    Team2 = [].
+
 
 getStats([],L2,Return):-append([],L2,Return).
 getStats([H|T],L2,Return):-findall(IdStats,participant(IdStats,H,_,_,_),L),
