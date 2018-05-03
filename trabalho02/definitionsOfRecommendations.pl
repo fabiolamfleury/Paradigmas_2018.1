@@ -27,30 +27,51 @@ find_participants([],_, Answer):-getStats(Answer,[],Stats),
                                 write(Stats),
                                 write('\n'),
                                 write(Answer),
-                                %TODO: Criar varias listas de 10 elementos, para depois serem divididos em dois times
-                                div(Stats, Team1, Team2),
-                                write('Time vencedor: '),
-                                nl,
-                                write_team(Team1),
-                                nl,
-                                write('Time perdedor: '),
-                                nl,
-                                write_team(Team2),
-                                b_getval(selectLanes, Lanes),
-                                write(Lanes),
-                                b_getval(selectChamps, Champs),
-                                write(Champs),
-                                nl.
+                                nl,nl,nl,
+                                divide_teams(Answer, Stats).
 find_participants([LaneH|LaneT], [EnemyH|EnemyT], Answer):-
                                         findall(MatchIds,participant(_,MatchIds,EnemyH,_,LaneH),List),
                                         find_champs_in_same_match(List,Answer,NewAnswer),
                                         find_participants(LaneT, EnemyT, NewAnswer).
 
-div(L, A, B) :-
-    append(A, B, L),
-    length(A, 5),
-    length(B, 5).
+divide_teams([], _).
+divide_teams([MatchId | Tail], Stats):- div(Stats, MatchParticipants, Rest, 10, N2),
+                                        match_info(MatchParticipants, MatchId),
+                                        divide_teams(Tail, Rest).
 
+match_info(MatchParticipants, MatchId):- div(MatchParticipants, Team1, Team2, 5, 5),
+                                         check_if_teams_are_match(MatchId, Team1, Team2).
+div(L, A, B, N1, N2) :-
+    append(A, B, L),
+    length(A, N1),
+    length(B, N2).
+
+check_if_teams_are_match(MatchId, Team1, Team2):- b_getval(selectLanes, Lanes), b_getval(selectChamps, Champs),
+                                                 enemy_team(Team1, Team2, MatchId, Lanes, Champs).
+
+enemy_team(Team1, Team2, MatchId,[HeadLane | Lanes], [HeadChamps | Champs]):-
+    (  all_in_team(Team1, MatchId, Lanes, Champs) -> nl,write('O time inimigo ganhou!'), nl,write_teams(Team1, Team2)
+    ;  all_in_team(Team2, MatchId, Lanes, Champs) -> nl,write('O time inimigo PERDEU!'), nl,write_teams(Team1, Team2)
+    ;  nl,write('Match retirada.'),nl
+     ).
+
+all_in_team(_,_,[],_).
+all_in_team(Team, MatchId, [Lane | LaneNexts], [Champ | ChampNexts]):- member_of_team(MatchId, Team, Champ, Lane),
+                                                                       all_in_team(Team, MatchId, LaneNexts, ChampNexts).
+
+member_of_team(MatchId, Team, ChampId, Lane):- participant(IdStats, MatchId, ChampId, _, Lane),
+                                               write(IdStats),
+                                               write(Team),
+                                               member(IdStats, Team).
+
+write_teams(Team1, Team2):-  write('Time vencedor: '),
+                             nl,
+                             write_team(Team1),
+                             nl,
+                             write('Time perdedor: '),
+                             nl,
+                             write_team(Team2),
+                             nl.
 write_team([]).
 write_team([Head | Tail]):- participant(Head, IdMatch, ChampionId, Role, Position),
                             champ(Champion, ChampionId),
