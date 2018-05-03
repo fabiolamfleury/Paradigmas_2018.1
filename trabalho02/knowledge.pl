@@ -41,3 +41,9 @@ influence_in_lane('BOT','JUNGLE').
 influence_in_lane('JUNGLE','TOP').
 influence_in_lane('JUNGLE','MID').
 influence_in_lane('JUNGLE','BOT').
+
+% How many players are allowed in each lane
+players_in_lane('BOT', 2).
+players_in_lane('TOP', 1).
+players_in_lane('JUNGLE', 1).
+players_in_lane('MID', 1).

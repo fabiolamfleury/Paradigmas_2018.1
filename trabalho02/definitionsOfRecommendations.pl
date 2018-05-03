@@ -36,6 +36,10 @@ find_participants([],_, Answer):-getStats(Answer,[],Stats),
                                 write('Time perdedor: '),
                                 write_result(Team2),
                                 write(Team2),
+                                b_getval(selectLanes, Lanes),
+                                write(Lanes),
+                                b_getval(selectChamps, Champs),
+                                write(Champs),
                                 nl.
 find_participants([LaneH|LaneT], [EnemyH|EnemyT], Answer):-
                                         findall(MatchIds,participant(_,MatchIds,EnemyH,_,LaneH),List),

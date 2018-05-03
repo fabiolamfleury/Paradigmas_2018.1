@@ -53,5 +53,7 @@ menu:-champ_name(Z,ChampSelect),opponent_in_lane(U,IdEnemy),
                    enemies(Lanes, Enemies),
                    append([SelectLane, SelectLane],Lanes,AllLanes),
                    append([ChampSelect, IdEnemy],Enemies,AllChamps),
+                   b_setval(selectLanes, AllLanes),
+                   b_setval(selectChamps, AllChamps),
                    /*Procura todas as partidas que tem a configuração de entrada*/
                    find_participant(AllLanes, AllChamps).
