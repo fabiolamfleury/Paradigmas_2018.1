@@ -40,6 +40,7 @@ divide_teams([MatchId | Tail], Stats):- div(Stats, MatchParticipants, Rest, 10, 
                                         divide_teams(Tail, Rest).
 
 match_info(MatchParticipants, MatchId):- div(MatchParticipants, Team1, Team2, 5, 5),
+                                         write('Partida de Número: '), write(MatchId), nl,
                                          check_if_teams_are_match(MatchId, Team1, Team2).
 div(L, A, B, N1, N2) :-
     append(A, B, L),
@@ -49,7 +50,7 @@ div(L, A, B, N1, N2) :-
 check_if_teams_are_match(MatchId, Team1, Team2):- b_getval(selectLanes, Lanes), b_getval(selectChamps, Champs),
                                                  enemy_team(Team1, Team2, MatchId, Lanes, Champs).
 
-enemy_team(Team1, Team2, MatchId,[HeadLane | Lanes], [HeadChamps | Champs]):-
+enemy_team(Team1, Team2, MatchId,[ _ | Lanes], [ _ | Champs]):-
     (  all_in_team(Team1, MatchId, Lanes, Champs) -> nl,write('O time inimigo ganhou!'), nl,write_teams(Team1, Team2)
     ;  all_in_team(Team2, MatchId, Lanes, Champs) -> nl,write('O time inimigo PERDEU!'), nl,write_teams(Team1, Team2)
     ;  nl,write('Match retirada.'),nl
@@ -60,8 +61,6 @@ all_in_team(Team, MatchId, [Lane | LaneNexts], [Champ | ChampNexts]):- member_of
                                                                        all_in_team(Team, MatchId, LaneNexts, ChampNexts).
 
 member_of_team(MatchId, Team, ChampId, Lane):- participant(IdStats, MatchId, ChampId, _, Lane),
-                                               write(IdStats),
-                                               write(Team),
                                                member(IdStats, Team).
 
 write_teams(Team1, Team2):-  write('Time vencedor: '),
@@ -73,7 +72,7 @@ write_teams(Team1, Team2):-  write('Time vencedor: '),
                              write_team(Team2),
                              nl.
 write_team([]).
-write_team([Head | Tail]):- participant(Head, IdMatch, ChampionId, Role, Position),
+write_team([Head | Tail]):- participant(Head, _, ChampionId, Role, Position),
                             champ(Champion, ChampionId),
                             write('Champion: '),
                             write(Champion),
