@@ -60,8 +60,8 @@ all_in_team(_,_,[],_).
 all_in_team(Team, MatchId, [Lane | LaneNexts], [Champ | ChampNexts]):- member_of_team(MatchId, Team, Champ, Lane),
                                                                        all_in_team(Team, MatchId, LaneNexts, ChampNexts).
 
-member_of_team(MatchId, Team, ChampId, Lane):- participant(IdStats, MatchId, ChampId, _, Lane),
-                                               member(IdStats, Team).
+member_of_team(MatchId, Team, ChampId, Lane):- participant(IdStats, _, ChampId, _, _),
+                                          member(IdStats, Team).
 
 write_teams(Team1, Team2):-  write('Time vencedor: '),
                              nl,
