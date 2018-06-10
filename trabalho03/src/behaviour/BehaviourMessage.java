@@ -11,6 +11,7 @@ public class BehaviourMessage extends OneShotBehaviour{
 	
 	public  BehaviourMessage(Agent agent,String messageContent) {
 		super(agent);
+		this.messageContent = messageContent;
 	
 	}
 	@Override

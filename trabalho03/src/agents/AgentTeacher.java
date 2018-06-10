@@ -2,8 +2,6 @@ package agents;
 
 import behaviour.BehaviourMessage;
 import jade.core.Agent;
-import jade.core.behaviours.OneShotBehaviour;
-import jade.domain.introspection.ACLMessage;
 
 public class AgentTeacher extends Agent{
 	
