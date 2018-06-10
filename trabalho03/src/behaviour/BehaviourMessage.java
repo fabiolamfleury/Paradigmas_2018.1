@@ -18,10 +18,10 @@ public class BehaviourMessage extends OneShotBehaviour{
 	public void action() {
 		
 		ACLMessage message = new ACLMessage(ACLMessage.INFORM);
-		message.addReceiver(new AID("estudante",AID.ISLOCALNAME));
+		message.addReceiver(new AID("companion",AID.ISLOCALNAME));
 		message.setLanguage("Português");
 		message.setOntology("teste");
-		message.setContent(this.messageContent);
+		message.setContent("teste");
 		myAgent.send(message);
 	
 	}
