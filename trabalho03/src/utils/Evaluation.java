@@ -1,39 +1,33 @@
 package utils;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Evaluation {
-	private String content;
-	private int evaluationNumber;
-	private double note;
+	private int idEvaluation;
+	private List<String> contents;
+	private int note;
 	
-	public Evaluation(String content, int evaluationNumber, double note) {
-		super();
-		this.content = content;
-		this.evaluationNumber = evaluationNumber;
+	public Evaluation(int idEvaluation,List<String> contents,  int note) {
+		
+		this.idEvaluation = idEvaluation;
+		this.contents = contents;
 		this.note = note;
 	}
 
-	
-	public String getContent() {
-		return content;
+	public List<String> getContent() {
+		return this.contents;
 	}
 
 	public void setContent(String content) {
-		this.content = content;
+		this.contents.add(content);
 	}
 
-	public int getEvaluationNumber() {
-		return evaluationNumber;
-	}
-
-	public void setEvaluationNumber(int evaluationNumber) {
-		this.evaluationNumber = evaluationNumber;
-	}
-
-	public double getNote() {
+	public int getNote() {
 		return note;
 	}
 
-	public void setNote(double note) {
+	public void setNote(int note) {
 		this.note = note;
 	}
 

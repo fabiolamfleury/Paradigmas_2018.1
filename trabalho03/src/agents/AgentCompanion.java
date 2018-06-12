@@ -1,6 +1,6 @@
 package agents;
 
-import behaviour.BehaviourReceiverMessage;
+import communication.BehaviourReceiverMessage;
 import jade.core.Agent;
 import jade.core.behaviours.CyclicBehaviour;
 import jade.core.behaviours.OneShotBehaviour;
@@ -11,8 +11,8 @@ public class AgentCompanion extends Agent{
 	
 	protected void setup() {
 
-		addBehaviour(new BehaviourReceiverMessage(this)) ;	
 	
+		
 	}
 
 }

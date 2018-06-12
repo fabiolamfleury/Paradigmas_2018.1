@@ -1,15 +1,19 @@
 package agents;
 
-import behaviour.BehaviourSuggestStudyMaterial;
+import java.util.ArrayList;
+import java.util.List;
+
 import jade.core.Agent;
+import utils.Evaluation;
+import utils.UtilsEvaluation;
 
 public class AgentStudent extends Agent{
 	
 	protected void setup() {
-		
-		System.out.println("Eu sou o agente do aluno Vai dar não ");
-		
-		addBehaviour(new BehaviourSuggestStudyMaterial(this,"Ruim"));
+		List<String> contents = new ArrayList<String>();
+		UtilsEvaluation utils = new UtilsEvaluation();
+		int studantFirstNote = utils.generateRandomNumber(10);
+		Evaluation firstEvaluation = new Evaluation(1, contents,studantFirstNote);
 	
 	}
 }

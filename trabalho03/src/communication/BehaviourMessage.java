@@ -1,4 +1,4 @@
-package behaviour;
+package communication;
 
 import jade.core.AID;
 import jade.core.Agent;
