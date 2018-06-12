@@ -3,6 +3,7 @@ package communication;
 import jade.core.Agent;
 import jade.core.behaviours.Behaviour;
 import jade.core.behaviours.CyclicBehaviour;
+import jade.core.behaviours.OneShotBehaviour;
 import jade.lang.acl.ACLMessage;
 
 public class BehaviourReceiverMessage extends OneShotBehaviour{

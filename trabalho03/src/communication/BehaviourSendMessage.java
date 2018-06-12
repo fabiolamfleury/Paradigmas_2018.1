@@ -9,16 +9,20 @@ public class BehaviourSendMessage extends OneShotBehaviour{
 
 	private String messageContent;
 	
-	public  BehaviourSendMessage(Agent agent) {
+	public  BehaviourSendMessage(Agent agent, String messageContent) {
 		super(agent);
-		
+		this.messageContent = messageContent;
 	}
 	
 	
 	@Override
 	public void action() {
-		
-		
+		ACLMessage message = new ACLMessage(ACLMessage.INFORM);
+		message.addReceiver(new AID("AgentStudent",AID.ISLOCALNAME));
+		message.setLanguage("Português");
+		message.setOntology("FeedBack");
+		message.setContent(messageContent);
+		myAgent.send(message);
+	
 	}
-
 }
