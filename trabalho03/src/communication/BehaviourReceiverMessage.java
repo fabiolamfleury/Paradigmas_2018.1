@@ -17,6 +17,7 @@ public class BehaviourReceiverMessage extends OneShotBehaviour{
 		ACLMessage message = myAgent.receive() ;
 		if(message!=null) {
 			String messageContent = message.getContent();	
+			System.out.println(messageContent);
 		}
 	}
 }

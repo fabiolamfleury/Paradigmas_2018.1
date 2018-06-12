@@ -14,7 +14,15 @@ public class Evaluation {
 		this.contents = contents;
 		this.note = note;
 	}
-
+	
+	public int getIdEvaluatio() {
+		return this.idEvaluation;
+	}
+	
+	public void setIdEvaluation(int idEvaluation) {
+		this.idEvaluation = idEvaluation;
+	}
+	
 	public List<String> getContent() {
 		return this.contents;
 	}
@@ -24,7 +32,7 @@ public class Evaluation {
 	}
 
 	public int getNote() {
-		return note;
+		return this.note;
 	}
 
 	public void setNote(int note) {

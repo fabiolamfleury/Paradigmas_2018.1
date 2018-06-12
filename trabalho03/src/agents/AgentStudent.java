@@ -3,7 +3,10 @@ package agents;
 import java.util.ArrayList;
 import java.util.List;
 
+import communication.BehaviourReceiverMessage;
 import jade.core.Agent;
+import jade.core.behaviours.Behaviour;
+import jade.lang.acl.ACLMessage;
 import utils.Evaluation;
 import utils.UtilsEvaluation;
 
@@ -24,6 +27,24 @@ public class AgentStudent extends Agent{
 		
 		firstEvaluation.setContent(firstContent);
 		firstEvaluation.setContent(secondContent);
+	
+		evaluationStatus(firstEvaluation.getIdEvaluatio(),firstEvaluation.getNote(),firstEvaluation.getContent());
+		//Receber messagem partir desse momento aqui????/
+		addBehaviour(new BehaviourReceiverMessage(this));
+	
+	}
+	
+	private void evaluationStatus(int evaluationID, int note,List<String> contents) {
+		
+		System.out.println("ID Prova " + evaluationID);
+		System.out.println("Conteúdos da Prova");
+		
+		for(String content : contents) {
+			System.out.println(content);
+		}
+		
+		System.out.println("Nota da prova " + note);
+		
 	
 	}
 }
