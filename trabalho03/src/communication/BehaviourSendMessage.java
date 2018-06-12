@@ -17,11 +17,12 @@ public class BehaviourSendMessage extends OneShotBehaviour{
 	
 	@Override
 	public void action() {
+		
 		ACLMessage message = new ACLMessage(ACLMessage.INFORM);
-		message.addReceiver(new AID("AgentStudent",AID.ISLOCALNAME));
+		message.addReceiver(new AID("AgentStudent", AID.ISLOCALNAME));
 		message.setLanguage("Português");
 		message.setOntology("FeedBack");
-		message.setContent(messageContent);
+		message.setContent(this.messageContent);
 		myAgent.send(message);
 	
 	}
