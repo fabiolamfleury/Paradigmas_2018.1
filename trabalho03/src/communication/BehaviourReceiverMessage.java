@@ -6,18 +6,24 @@ import jade.core.behaviours.CyclicBehaviour;
 import jade.core.behaviours.OneShotBehaviour;
 import jade.lang.acl.ACLMessage;
 
-public class BehaviourReceiverMessage extends OneShotBehaviour{
+public class BehaviourReceiverMessage extends OneShotBehaviour {
+
 
 	public BehaviourReceiverMessage(Agent agent) {
 		super(agent);
+
 	}
 
-	
 	public void action() {
-		ACLMessage message = myAgent.receive() ;
-		if(message!=null) {
-			String messageContent = message.getContent();	
+		ACLMessage message = myAgent.receive();
+		if (message != null) {
+			
+			String messageContent = message.getContent();
 			System.out.println(messageContent);
+			
+		}else {
+			System.out.println("deu ruim");
 		}
+
 	}
 }

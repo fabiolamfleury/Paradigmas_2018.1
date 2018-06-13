@@ -22,7 +22,7 @@ public class BehaviourSendMessage extends OneShotBehaviour{
 	public void action() {
 		
 		ACLMessage message = new ACLMessage(ACLMessage.INFORM);
-		message.addReceiver(new AID(receiver, AID.ISLOCALNAME));
+		message.addReceiver(new AID(this.receiver, AID.ISLOCALNAME));
 		message.setLanguage("Português");
 		message.setOntology("FeedBack");
 		message.setContent(this.messageContent);
