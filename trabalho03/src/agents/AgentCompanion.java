@@ -9,8 +9,8 @@ public class AgentCompanion extends Agent{
 	
 	protected void setup() {
 		
-		addBehaviour(new BehaviourReplyMessage(this,"hue"));
-		
+		addBehaviour(new BehaviourReceiverMessage(this));
+		//addBehaviour(new BehaviourReplyMessage(this, "hue"));
 	}
 
 }

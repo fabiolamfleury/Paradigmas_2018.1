@@ -31,7 +31,7 @@ public class AgentStudent extends Agent{
 	
 		evaluationStatus(firstEvaluation.getIdEvaluatio(),firstEvaluation.getNote(),firstEvaluation.getContent());
 		//Receber messagem partir desse momento aqui????/
-		addBehaviour(new BehaviourSendMessage(this, "6", "companion"));
+		addBehaviour(new BehaviourSendMessage(this, "6",BehaviourSendMessage.AGENTCOMPANION));
 		
 		addBehaviour(new BehaviourReceiverMessage(this));
 		

@@ -17,9 +17,9 @@ public class BehaviourReplyMessage extends OneShotBehaviour{
 	@Override
 	public void action() {
 		ACLMessage message = myAgent.receive();
+		String content = message.getContent();
 		ACLMessage reply = message.createReply();
-		//String content = message.getContent();
-		//System.out.println(content);
+		System.out.println(content);
 		reply.setPerformative(ACLMessage.INFORM);
 		reply.setContent(this.reply);
 		
