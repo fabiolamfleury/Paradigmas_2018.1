@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import communication.BehaviourReceiverMessage;
+import communication.BehaviourSendMessage;
 import jade.core.Agent;
 import jade.core.behaviours.Behaviour;
 import jade.lang.acl.ACLMessage;
@@ -30,7 +31,11 @@ public class AgentStudent extends Agent{
 	
 		evaluationStatus(firstEvaluation.getIdEvaluatio(),firstEvaluation.getNote(),firstEvaluation.getContent());
 		//Receber messagem partir desse momento aqui????/
+		addBehaviour(new BehaviourSendMessage(this, "6", "companion"));
+		
 		addBehaviour(new BehaviourReceiverMessage(this));
+		
+		//Ações do primeiro feedback
 	
 	}
 	
