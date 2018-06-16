@@ -6,9 +6,9 @@ import java.util.List;
 public class Evaluation {
 	private int idEvaluation;
 	private List<String> contents;
-	private int note;
+	private double note;
 	
-	public Evaluation(int idEvaluation,List<String> contents,  int note) {
+	public Evaluation(int idEvaluation,List<String> contents,  double note) {
 		
 		this.idEvaluation = idEvaluation;
 		this.contents = contents;
@@ -31,11 +31,11 @@ public class Evaluation {
 		this.contents.add(content);
 	}
 
-	public int getNote() {
+	public double getNote() {
 		return this.note;
 	}
 
-	public void setNote(int note) {
+	public void setNote(double note) {
 		this.note = note;
 	}
 

@@ -17,9 +17,6 @@ import utils.UtilsEvaluation;
 
 public class AgentStudent extends Agent{
 	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -6712087013514278403L;
 
 	
@@ -33,7 +30,7 @@ public class AgentStudent extends Agent{
 		UtilsEvaluation utils = new UtilsEvaluation();
 		
 		// Set Student note
-		int studantFirstNote = utils.generateRandomNumber(10);
+		double studantFirstNote = utils.generateRandomDouble(0, 10);
 		Evaluation firstEvaluation = new Evaluation(1, contents,studantFirstNote);
 		
 		// Random Content on Evaluation
@@ -70,7 +67,7 @@ public class AgentStudent extends Agent{
 				if(message!= null) {
 					String content = message.getContent();
 					System.out.println(content);
-				
+					
 				}else {
 					block();
 				}

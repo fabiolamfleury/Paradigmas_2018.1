@@ -15,6 +15,12 @@ public class UtilsEvaluation {
 		Random rand = new Random();
 		return  rand.nextInt(range);
 	}
+	public double generateRandomDouble(int min, int max) {
+		Random r = new Random();
+		double randomValue = min + (max - min) * r.nextDouble();
+		return randomValue;
+
+	}
 	
 	public String selectContentFirstEvaluation() {
 		
@@ -47,10 +53,13 @@ public class UtilsEvaluation {
 		int performance = generateRandomNumber(4);
 		if(performance==0) {
 			System.out.println("Desempenho com o professor Ruim");
+		
 		}else if(performance==1) {
 			System.out.println("Desempenho com o professor regular");
+		
 		}else if(performance==2){
 			System.out.println("Desempenho com o professor bom");
+		
 		}else {
 			System.out.println("Desempenho com o professor excelente");
 		}
@@ -61,10 +70,13 @@ public class UtilsEvaluation {
 		int performance = generateRandomNumber(4);
 		if(performance==0) {
 			System.out.println("Desempenho com o Monitor Ruim");
+		
 		}else if(performance==1) {
 			System.out.println("Desempenho com o Monitor regular");
+		
 		}else if(performance==2){
 			System.out.println("Desempenho com o Monitor bom");
+		
 		}else {
 			System.out.println("Desempenho com o Monitor excelente");
 		}
