@@ -6,8 +6,8 @@ import jade.core.behaviours.CyclicBehaviour;
 import jade.core.behaviours.OneShotBehaviour;
 import jade.lang.acl.ACLMessage;
 
-public class BehaviourReceiverMessage extends OneShotBehaviour {
-
+public class BehaviourReceiverMessage extends CyclicBehaviour {
+	private static final long serialVersionUID = 7768217846531384442L;
 
 	public BehaviourReceiverMessage(Agent agent) {
 		super(agent);
@@ -15,14 +15,14 @@ public class BehaviourReceiverMessage extends OneShotBehaviour {
 	}
 
 	public void action() {
-		ACLMessage message = myAgent.receive();
-		if (message != null) {
-			
+		ACLMessage message = super.getAgent().receive();
+		if (message != null) {			
 			String messageContent = message.getContent();
 			System.out.println(messageContent);
-			
+			System.out.println("deu bom");
+			super.getAgent().removeBehaviour(this);
 		}else {
-			System.out.println("deu ruim");
+			block(10);
 		}
 
 	}

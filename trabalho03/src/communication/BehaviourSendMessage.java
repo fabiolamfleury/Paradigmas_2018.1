@@ -23,10 +23,9 @@ public class BehaviourSendMessage extends OneShotBehaviour{
 		
 		ACLMessage message = new ACLMessage(ACLMessage.INFORM);
 		message.addReceiver(new AID(this.receiver, AID.ISLOCALNAME));
-		message.setLanguage("PortuguÃªs");
+		message.setLanguage("Português");
 		message.setOntology("FeedBack");
 		message.setContent(this.messageContent);
-		myAgent.send(message);
-	
+		myAgent.send(message);	
 	}
 }

@@ -41,7 +41,7 @@ public class AgentStudent extends Agent{
 	private void evaluationStatus(int evaluationID, int note,List<String> contents) {
 		
 		System.out.println("ID Prova " + evaluationID);
-		System.out.println("ConteÃºdos da Prova");
+		System.out.println("Conteúdos da Prova");
 		
 		for(String content : contents) {
 			System.out.println(content);

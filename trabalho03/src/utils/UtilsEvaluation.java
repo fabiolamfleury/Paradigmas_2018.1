@@ -19,8 +19,8 @@ public class UtilsEvaluation {
 	public String selectContentFirstEvaluation() {
 		
 		String [] possibleContents = {"Criador","Especialista na Informação","Baixo Acoplamento",
-									 "Alta Coesão ","Controlador ","Polimorfismo","Fabricação",
-									 "Invenção Pura ","Indireção","Variações Protegidas"};
+									 "Alta Coes�o ","Controlador ","Polimorfismo","Fabricação",
+									 "Inven��o Pura ","Indireção","Variações Protegidas"};
 		
 		int index = generateRandomNumber(8);
 		String content = possibleContents[index];
