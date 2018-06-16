@@ -5,6 +5,7 @@ import java.util.List;
 
 import jade.core.AID;
 import jade.core.Agent;
+import jade.core.behaviours.CyclicBehaviour;
 import jade.core.behaviours.OneShotBehaviour;
 import jade.domain.DFService;
 import jade.domain.FIPAException;
@@ -58,6 +59,21 @@ public class AgentStudent extends Agent{
 				message.setContent(messageFirstEvaluation);
 				myAgent.send(message);	
 
+			}
+		});
+	
+		addBehaviour(new CyclicBehaviour(this) {
+			
+			@Override
+			public void action() {
+				ACLMessage message = myAgent.receive();
+				if(message!= null) {
+					String content = message.getContent();
+					System.out.println(content);
+				}else {
+					block();
+				}
+				
 			}
 		});
 	}
