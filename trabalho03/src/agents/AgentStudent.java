@@ -17,6 +17,11 @@ import utils.UtilsEvaluation;
 
 public class AgentStudent extends Agent{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6712087013514278403L;
+
 	protected void setup() {
 		ServiceDescription sd = new ServiceDescription(); 
 		sd.setName(getName()); 

@@ -10,6 +10,11 @@ import jade.domain.FIPAAgentManagement.ServiceDescription;
 
 public class AgentCompanion extends Agent{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -587032368657425161L;
+
 	protected void setup() {
 		ServiceDescription sd = new ServiceDescription(); 
 		sd.setName(getName()); 
