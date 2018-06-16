@@ -7,6 +7,10 @@ import communication.BehaviourReceiverMessage;
 import communication.BehaviourSendMessage;
 import jade.core.Agent;
 import jade.core.behaviours.Behaviour;
+import jade.domain.DFService;
+import jade.domain.FIPAException;
+import jade.domain.FIPAAgentManagement.DFAgentDescription;
+import jade.domain.FIPAAgentManagement.ServiceDescription;
 import jade.lang.acl.ACLMessage;
 import utils.Evaluation;
 import utils.UtilsEvaluation;
@@ -14,6 +18,10 @@ import utils.UtilsEvaluation;
 public class AgentStudent extends Agent{
 	
 	protected void setup() {
+		ServiceDescription sd = new ServiceDescription(); 
+		sd.setName(getName()); 
+		sd.setType("AgentStudent"); 
+		register(sd);
 		
 		List<String> contents = new ArrayList<String>();
 		UtilsEvaluation utils = new UtilsEvaluation();
@@ -35,6 +43,8 @@ public class AgentStudent extends Agent{
 		addBehaviour(new BehaviourSendMessage(this, "6",BehaviourSendMessage.AGENTCOMPANION));
 		
 		//Ações do primeiro feedback
+		
+
 	
 	}
 	
@@ -47,8 +57,19 @@ public class AgentStudent extends Agent{
 			System.out.println(content);
 		}
 		
-		System.out.println("Nota da prova " + note);
-		
+		System.out.println("Nota da prova " + note);		
 	
 	}
+	
+    void register( ServiceDescription sd)
+    {
+        DFAgentDescription dfd = new DFAgentDescription();
+        dfd.setName(getAID());
+        dfd.addServices(sd);
+
+        try {  
+            DFService.register(this, dfd );  
+        }
+        catch (FIPAException fe) { fe.printStackTrace(); }
+    }
 }

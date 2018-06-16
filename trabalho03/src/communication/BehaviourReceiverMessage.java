@@ -7,7 +7,6 @@ import jade.core.behaviours.OneShotBehaviour;
 import jade.lang.acl.ACLMessage;
 
 public class BehaviourReceiverMessage extends CyclicBehaviour {
-	private static final long serialVersionUID = 7768217846531384442L;
 
 	public BehaviourReceiverMessage(Agent agent) {
 		super(agent);
