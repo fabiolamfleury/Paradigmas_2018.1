@@ -1,6 +1,5 @@
 package agents;
 
-import communication.BehaviourMeetAllCompanions;
 import jade.core.AID;
 import jade.core.Agent;
 import jade.core.behaviours.CyclicBehaviour;
@@ -28,10 +27,7 @@ public class AgentTeacher extends Agent{
 		sd.setName(getName()); 
 		sd.setType("AgentCompanion"); 
 		register(sd);
-		
-		BehaviourMeetAllCompanions mC = new BehaviourMeetAllCompanions(this); 
-		addBehaviour(mC);
-		
+
 	} 
 	
     void register( ServiceDescription sd)

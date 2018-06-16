@@ -3,10 +3,9 @@ package agents;
 import java.util.ArrayList;
 import java.util.List;
 
-import communication.BehaviourReceiverMessage;
-import communication.BehaviourSendMessage;
+import jade.core.AID;
 import jade.core.Agent;
-import jade.core.behaviours.Behaviour;
+import jade.core.behaviours.OneShotBehaviour;
 import jade.domain.DFService;
 import jade.domain.FIPAException;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
@@ -22,6 +21,7 @@ public class AgentStudent extends Agent{
 	 */
 	private static final long serialVersionUID = -6712087013514278403L;
 
+	
 	protected void setup() {
 		ServiceDescription sd = new ServiceDescription(); 
 		sd.setName(getName()); 
@@ -41,29 +41,35 @@ public class AgentStudent extends Agent{
 		
 		firstEvaluation.setContent(firstContent);
 		firstEvaluation.setContent(secondContent);
-	
-		evaluationStatus(firstEvaluation.getIdEvaluatio(),firstEvaluation.getNote(),firstEvaluation.getContent());
 		
-		//Receber messagem partir desse momento aqui????/
-		addBehaviour(new BehaviourSendMessage(this, "6",BehaviourSendMessage.AGENTCOMPANION));
+		evaluationStatus(firstEvaluation.getIdEvaluatio(),firstEvaluation.getContent());
 		
-		//Ações do primeiro feedback
-		
+		String note = String.valueOf(studantFirstNote);
+		String messageFirstEvaluation = "Primeira prova nota "+ note;
+		addBehaviour(new OneShotBehaviour(this) {
+			
+			@Override
+			public void action() {
+				
+				ACLMessage message = new ACLMessage(ACLMessage.INFORM);
+				message.addReceiver(new AID("companion", AID.ISLOCALNAME));
+				message.setLanguage("Português");
+				message.setOntology("FeedBack");
+				message.setContent(messageFirstEvaluation);
+				myAgent.send(message);	
 
-	
+			}
+		});
 	}
 	
-	private void evaluationStatus(int evaluationID, int note,List<String> contents) {
+	private void evaluationStatus(int evaluationID,List<String> contents) {
 		
 		System.out.println("ID Prova " + evaluationID);
-		System.out.println("Conte�dos da Prova");
+		System.out.println("Conteúdos da Prova");
 		
 		for(String content : contents) {
 			System.out.println(content);
-		}
-		
-		System.out.println("Nota da prova " + note);		
-	
+		}	
 	}
 	
     void register( ServiceDescription sd)
