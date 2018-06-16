@@ -70,10 +70,10 @@ public class AgentStudent extends Agent{
 				if(message!= null) {
 					String content = message.getContent();
 					System.out.println(content);
+				
 				}else {
 					block();
 				}
-				
 			}
 		});
 	}

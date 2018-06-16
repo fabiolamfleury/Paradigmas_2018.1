@@ -71,20 +71,23 @@ public class AgentCompanion extends Agent{
     						  "Comparecer na monitoria 2 vezes por semana \n" + 
     					      "Revisar o conteudo do moodle e aplicar os padrões em um trabalho a parte do da disciplina\n"+
     						  "Acompanhamento semana com o professor 1 vez por semana";
- 
+    		 System.out.println(feedback);
     	}else if(note>3 && note<5) {
     		 feedback = "Reforçar os estudos com realização de exercicios na plataforma \n" +
 					  "Comparecer na monitoria 2 vezes por semana \n" + 
 		              "Acompanhamento semana com o professor 1 vez por semana";
+    		 System.out.println(feedback);
     	}else if(note> 5 && note<7) {
     		 feedback ="Reforçar os estudos dos padrões grasps\n"+ 
     					"Reforçar os estudos respondendo as questões da plataforma";
     	}else if(note>7 && note <9) {
     		feedback= "Reforçar os estudos com questões da plataforma";
+    		System.out.println(feedback);
     	}else {
     		feedback = "Manter a rotina de estudos";
+    		System.out.println(feedback);
     	}
-
+    		
     	return feedback;
     }
     
@@ -92,7 +95,8 @@ public class AgentCompanion extends Agent{
     private int getNote(String message) {
     	String [] split = message.split(" ");
     	int note = Integer.parseInt(split[3]);
-    	System.out.println("aaaaaaaaaaaaa"+ note);
+    	System.out.println(note);
     	return note;
     }
+
 }
