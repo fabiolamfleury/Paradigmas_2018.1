@@ -24,7 +24,7 @@ public class MeetAllCompanionsBehaviour extends OneShotBehaviour{
 		public void action() {
 	        DFAgentDescription dfd = new DFAgentDescription();
 	        ServiceDescription sd  = new ServiceDescription();
-	        sd.setType("AgentCompanion");
+	        sd.setType("AgentStudent");
 	        dfd.addServices(sd);
 	        
 	        DFAgentDescription[] result;

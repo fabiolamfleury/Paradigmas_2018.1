@@ -16,11 +16,9 @@ public class Run {
 	    Profile p = new ProfileImpl(pp);
 	    AgentContainer ac = jade.core.Runtime.instance().createMainContainer(p);
 	    try {
-	        ac.acceptNewAgent("Companion", new AgentCompanion()).start();
-	        ac.acceptNewAgent("Companion2", new AgentCompanion()).start();
-	        ac.acceptNewAgent("Student1", new AgentStudent()).start();
-	        ac.acceptNewAgent("Student2", new AgentStudent()).start();
-	        ac.acceptNewAgent("Teacher", new AgentTeacher()).start();
+	        ac.acceptNewAgent("Alberto", new AgentStudent("130000001")).start();
+	        ac.acceptNewAgent("Joana", new AgentStudent("1200000001")).start();
+	        ac.acceptNewAgent("ProfessorAfonso", new AgentTeacher("Desenho")).start();
 	    } catch (StaleProxyException e) {
 	        throw new Error(e);
 	    }

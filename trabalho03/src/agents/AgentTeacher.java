@@ -16,7 +16,11 @@ import jade.lang.acl.ACLMessage;
 public class AgentTeacher extends Agent{
 	
 	private static final long serialVersionUID = 3039621223253454417L;
+	private String materia;
 	
+	public AgentTeacher(String materia) {
+		this.materia = materia;
+	}
 	protected void setup() {		
 		System.out.println("Eu sou um professor, e preciso conhecer os Companions dos alunos da minha turma");
 		MeetAllCompanionsBehaviour mCB = new MeetAllCompanionsBehaviour(this); 

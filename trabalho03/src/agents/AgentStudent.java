@@ -3,6 +3,7 @@ package agents;
 import java.util.ArrayList;
 import java.util.List;
 
+import behaviours.CreateCompanionBehaviour;
 import jade.core.AID;
 import jade.core.Agent;
 import jade.core.behaviours.CyclicBehaviour;
@@ -18,7 +19,12 @@ import utils.UtilsEvaluation;
 public class AgentStudent extends Agent{
 	
 	private static final long serialVersionUID = -6712087013514278403L;
-
+	private String matricula;
+	private AID companion;
+	
+	public AgentStudent(String matricula) {
+		this.matricula = matricula;
+	}
 	
 	protected void setup() {
 		ServiceDescription sd = new ServiceDescription(); 
@@ -44,13 +50,15 @@ public class AgentStudent extends Agent{
 		
 		String note = String.valueOf(studantFirstNote);
 		String messageFirstEvaluation = "Primeira prova nota "+ note;
+		addBehaviour(new CreateCompanionBehaviour(this));
+		
 		addBehaviour(new OneShotBehaviour(this) {
 			
 			@Override
 			public void action() {
 				
 				ACLMessage message = new ACLMessage(ACLMessage.INFORM);
-				message.addReceiver(new AID("companion", AID.ISLOCALNAME));
+				message.addReceiver(((AgentStudent) myAgent).getCompanion());
 				message.setLanguage("Português");
 				message.setOntology("FeedBack");
 				message.setContent(messageFirstEvaluation);
@@ -95,4 +103,13 @@ public class AgentStudent extends Agent{
         }
         catch (FIPAException fe) { fe.printStackTrace(); }
     }
+
+	public void setCompanion(AID companion) {
+		this.companion = companion;
+	}
+	
+	public AID getCompanion(){
+		return this.companion;
+	}
+	
 }
