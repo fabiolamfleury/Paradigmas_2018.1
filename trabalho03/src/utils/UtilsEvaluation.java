@@ -43,10 +43,38 @@ public class UtilsEvaluation {
 		return content;
 	}
 	
-	public int questionResult() {
+	public int rightQuestionResult() {
 		int rightQuestion = generateRandomNumber(25);
 		System.out.println("O numero de questões corretas foram " + rightQuestion);
 		return rightQuestion;
+	}
+	public double questionResultMultiply(int questions) {
+		if(questions == 0) {
+			return 1;
+		}else if(questions<5 ) {
+			return 1.05;
+		}else if(questions>5 && questions<10) {
+			return 1.1;
+		}else if(questions>10 && questions<15) {
+			return 1.15;
+		}else if(questions>15 && questions<25) {
+			return 1.20;
+		}else {
+			return 1.25;
+		}
+	}
+	public double monitoring(int perfomance) {
+		
+		if(perfomance==0) {
+			return 1;
+		}else if(perfomance==1) {
+			return 1.05;
+		}else if(perfomance==2){
+			return 1.1;
+		}else {
+			return 1.15;
+		}
+		
 	}
 	
 	public int teacherPerfomance() {
@@ -83,8 +111,45 @@ public class UtilsEvaluation {
 		return performance;
 	}
 	
-	public int monitorinPerformanceResult() {
-		return 0;
-	}
-	 
+	public double monitorinPerformanceResult(double note) {
+		
+		if(note==0) {
+			int teachePermance = teacherPerfomance();
+			int monitorPermance = monitorPerfomance();
+			double teacheResult = monitoring(teachePermance);  
+			double monitorResult = monitoring(monitorPermance);		
+			int rightQuestions = rightQuestionResult();
+			double multiplyQuestions = questionResultMultiply(rightQuestions);
+			return teacheResult * monitorResult * multiplyQuestions;
+			
+		}else if(note>0 && note<5) {
+			int teachePermance = teacherPerfomance();
+			int monitorPermance = monitorPerfomance();
+			double teacheResult = monitoring(teachePermance);  
+			double monitorResult = monitoring(monitorPermance);		
+			int rightQuestions = rightQuestionResult();
+			double multiplyQuestions = questionResultMultiply(rightQuestions);
+			return  teacheResult * monitorResult * multiplyQuestions;
+			
+		}else if(note>=5 && note<7) {
+			int rightQuestions = rightQuestionResult();
+			int monitorPermance = monitorPerfomance();
+			double monitorResult = monitoring(monitorPermance);		
+			double multiplyQuestions = questionResultMultiply(rightQuestions);
+			
+			return  monitorResult * multiplyQuestions;
+		}else if(note>=7 && note <9) {
+			int rightQuestions = rightQuestionResult();
+			double multiplyQuestions = questionResultMultiply(rightQuestions);
+			return   multiplyQuestions;
+	
+		}else {
+			
+			System.out.println("mantenha o desempenho");
+			return 1;
+		}
+	   		
+   }
 }
+	 
+

@@ -58,21 +58,20 @@ public class AgentStudent extends Agent{
 
 			}
 		});
-	
-		addBehaviour(new CyclicBehaviour(this) {
-			
-			@Override
-			public void action() {
-				ACLMessage message = myAgent.receive();
-				if(message!= null) {
-					String content = message.getContent();
-					System.out.println(content);
-					
-				}else {
-					block();
-				}
-			}
-		});
+		double studantSecoundNote = utils.generateRandomDouble(0, 10);
+		double multiply = utils.monitorinPerformanceResult(studantFirstNote);
+		
+		double noteAfterFeedBack = multiply * studantSecoundNote;
+		Evaluation secound = new Evaluation(2, contents,noteAfterFeedBack);
+		firstContent = utils.selectContentSecoundEvaluation();
+		secondContent = utils.selectContentSecoundEvaluation();
+		secound.setContent(firstContent);
+		secound.setContent(secondContent);
+		evaluationStatus(secound.getIdEvaluatio(),secound.getContent());
+
+		String messageSecondEvaluation = "Segunda prova nota " + String.valueOf(noteAfterFeedBack);
+		System.out.println(messageFirstEvaluation);
+		
 	}
 	
 	private void evaluationStatus(int evaluationID,List<String> contents) {
