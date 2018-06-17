@@ -113,9 +113,9 @@ public class UtilsEvaluation {
 		return performance;
 	}
 	
-	public double monitorinPerformanceResult(double note) {
+	public double monitorinPerformanceResult(double grade) {
 		
-		if(note==0) {
+		if(grade==0) {
 			int teachePermance = teacherPerfomance();
 			int monitorPermance = monitorPerfomance();
 			double teacheResult = monitoring(teachePermance);  
@@ -124,7 +124,7 @@ public class UtilsEvaluation {
 			double multiplyQuestions = questionResultMultiply(rightQuestions);
 			return teacheResult * monitorResult * multiplyQuestions;
 			
-		}else if(note>0 && note<5) {
+		}else if(grade>0 && grade<5) {
 			int teachePermance = teacherPerfomance();
 			int monitorPermance = monitorPerfomance();
 			double teacheResult = monitoring(teachePermance);  
@@ -133,14 +133,14 @@ public class UtilsEvaluation {
 			double multiplyQuestions = questionResultMultiply(rightQuestions);
 			return  teacheResult * monitorResult * multiplyQuestions;
 			
-		}else if(note>=5 && note<7) {
+		}else if(grade>=5 && grade<7) {
 			int rightQuestions = rightQuestionResult();
 			int monitorPermance = monitorPerfomance();
 			double monitorResult = monitoring(monitorPermance);		
 			double multiplyQuestions = questionResultMultiply(rightQuestions);
 			
 			return  monitorResult * multiplyQuestions;
-		}else if(note>=7 && note <9) {
+		}else if(grade>=7 && grade <9) {
 			int rightQuestions = rightQuestionResult();
 			double multiplyQuestions = questionResultMultiply(rightQuestions);
 			return   multiplyQuestions;

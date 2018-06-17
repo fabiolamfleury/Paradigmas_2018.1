@@ -6,13 +6,11 @@ import java.util.List;
 public class Evaluation {
 	private int idEvaluation;
 	private List<String> contents;
-	private double note;
 	
-	public Evaluation(int idEvaluation,List<String> contents,  double note) {
+	public Evaluation(int idEvaluation) {
 		
 		this.idEvaluation = idEvaluation;
-		this.contents = contents;
-		this.note = note;
+		this.contents = new ArrayList<String>();
 	}
 	
 	public int getIdEvaluatio() {
@@ -27,16 +25,9 @@ public class Evaluation {
 		return this.contents;
 	}
 
-	public void setContent(String content) {
+	public void addContent(String content) {
 		this.contents.add(content);
 	}
 
-	public double getNote() {
-		return this.note;
-	}
-
-	public void setNote(double note) {
-		this.note = note;
-	}
 
 }

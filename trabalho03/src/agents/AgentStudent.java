@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import behaviours.CreateCompanionBehaviour;
+import behaviours.SendMessageBehaviour;
 import jade.core.AID;
 import jade.core.Agent;
 import jade.core.behaviours.CyclicBehaviour;
@@ -32,65 +33,27 @@ public class AgentStudent extends Agent{
 		sd.setType("AgentStudent"); 
 		register(sd);
 		
-		List<String> contents = new ArrayList<String>();
+		addBehaviour(new CreateCompanionBehaviour(this));
+
 		UtilsEvaluation utils = new UtilsEvaluation();
 		
 		// Set Student note
-		double studantFirstNote = utils.generateRandomDouble(0, 10);
-		Evaluation firstEvaluation = new Evaluation(1, contents,studantFirstNote);
+		double studentFirstGrade = utils.generateRandomDouble(0, 10);		
+		String grade = String.valueOf(studentFirstGrade);
+		String messageFirstEvaluation = "Primeira prova nota "+ grade;
 		
-		// Random Content on Evaluation
-		String firstContent = utils.selectContentFirstEvaluation();
-		String secondContent = utils.selectContentFirstEvaluation();
+		addBehaviour(new SendMessageBehaviour(this, messageFirstEvaluation));
 		
-		firstEvaluation.setContent(firstContent);
-		firstEvaluation.setContent(secondContent);
-		
-		evaluationStatus(firstEvaluation.getIdEvaluatio(),firstEvaluation.getContent());
-		
-		String note = String.valueOf(studantFirstNote);
-		String messageFirstEvaluation = "Primeira prova nota "+ note;
-		addBehaviour(new CreateCompanionBehaviour(this));
-		
-		addBehaviour(new OneShotBehaviour(this) {
-			
-			@Override
-			public void action() {
-				
-				ACLMessage message = new ACLMessage(ACLMessage.INFORM);
-				message.addReceiver(((AgentStudent) myAgent).getCompanion());
-				message.setLanguage("Português");
-				message.setOntology("FeedBack");
-				message.setContent(messageFirstEvaluation);
-				myAgent.send(message);	
-
-			}
-		});
 		double studantSecoundNote = utils.generateRandomDouble(0, 10);
-		double multiply = utils.monitorinPerformanceResult(studantFirstNote);
+		double multiply = utils.monitorinPerformanceResult(studentFirstGrade);
 		
 		double noteAfterFeedBack = multiply * studantSecoundNote;
-		Evaluation secound = new Evaluation(2, contents,noteAfterFeedBack);
-		firstContent = utils.selectContentSecoundEvaluation();
-		secondContent = utils.selectContentSecoundEvaluation();
-		secound.setContent(firstContent);
-		secound.setContent(secondContent);
-		evaluationStatus(secound.getIdEvaluatio(),secound.getContent());
 
 		String messageSecondEvaluation = "Segunda prova nota " + String.valueOf(noteAfterFeedBack);
-		System.out.println(messageFirstEvaluation);
+		addBehaviour(new SendMessageBehaviour(this, messageSecondEvaluation));
 		
 	}
 	
-	private void evaluationStatus(int evaluationID,List<String> contents) {
-		
-		System.out.println("ID Prova " + evaluationID);
-		System.out.println("ConteÃºdos da Prova");
-		
-		for(String content : contents) {
-			System.out.println(content);
-		}	
-	}
 	
     void register( ServiceDescription sd)
     {

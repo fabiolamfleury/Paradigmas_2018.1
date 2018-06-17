@@ -2,9 +2,10 @@ package behaviours;
 
 import jade.core.AID;
 import jade.core.Agent;
-import jade.core.behaviours.CyclicBehaviour;
+import jade.core.behaviours.OneShotBehaviour;
+import jade.lang.acl.ACLMessage;
 
-public class CheckStudentProgressBehaviour extends CyclicBehaviour{
+public class CheckStudentProgressBehaviour extends OneShotBehaviour{
 
 	/**
 	 * 
@@ -20,7 +21,16 @@ public class CheckStudentProgressBehaviour extends CyclicBehaviour{
 	
 	@Override
 	public void action() {
-		// TODO Auto-generated method stub
+		for (AID aid : companions) {
+			ACLMessage message = new ACLMessage(ACLMessage.REQUEST);
+			message.addReceiver(aid);
+			message.setLanguage("Português");
+			message.setOntology("Acompanhamento");
+			String mensagem = "Como andam os estudos do estudante que você está acompanhando?";
+			System.out.println(myAgent.getName() + ": \t enviando mensagem para acompanhar estudante para o companion: " + aid);
+			message.setContent(mensagem);
+			myAgent.send(message);	
+		}
 		
 	}
 
