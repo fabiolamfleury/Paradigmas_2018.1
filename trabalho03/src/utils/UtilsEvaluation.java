@@ -24,9 +24,9 @@ public class UtilsEvaluation {
 	
 	public String selectContentFirstEvaluation() {
 		
-		String [] possibleContents = {"Criador","Especialista na Informa√ß√£o","Baixo Acoplamento",
-									 "Alta Coes√£o ","Controlador ","Polimorfismo","Fabrica√ß√£o",
-									 "Inven√ß√£o Pura ","Indire√ß√£o","Varia√ß√µes Protegidas"};
+		String [] possibleContents = {"Criador","Especialista na InformaÁ„o","Baixo Acoplamento",
+									 "Alta Coes„o ","Controlador ","Polimorfismo","FabricaÁ„o",
+									 "InvenÁ„o Pura ","IndireÁ„o","VariaÁıes Protegidas"};
 		
 		int index = generateRandomNumber(8);
 		String content = possibleContents[index];
@@ -36,7 +36,7 @@ public class UtilsEvaluation {
 	
 	//Logic for secund evaluation
 	public String selectContentSecoundEvaluation() {
-		String [] possibleContents = {"Cria√ß√£o","Estruturais","Comportamentais"};
+		String [] possibleContents = {"Criacionais","Estruturais","Comportamentais"};
 
 		int index = generateRandomNumber(2);
 		String content = possibleContents[index];
@@ -48,6 +48,7 @@ public class UtilsEvaluation {
 		System.out.println("O numero de quest√µes corretas foram " + rightQuestion);
 		return rightQuestion;
 	}
+	
 	public double questionResultMultiply(int questions) {
 		if(questions == 0) {
 			return 1;
@@ -63,6 +64,7 @@ public class UtilsEvaluation {
 			return 1.25;
 		}
 	}
+	
 	public double monitoring(int perfomance) {
 		
 		if(perfomance==0) {

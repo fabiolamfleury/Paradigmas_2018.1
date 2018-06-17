@@ -51,7 +51,7 @@ public class AgentStudent extends Agent{
 				
 				ACLMessage message = new ACLMessage(ACLMessage.INFORM);
 				message.addReceiver(new AID("companion", AID.ISLOCALNAME));
-				message.setLanguage("PortuguÃªs");
+				message.setLanguage("Português");
 				message.setOntology("FeedBack");
 				message.setContent(messageFirstEvaluation);
 				myAgent.send(message);	
