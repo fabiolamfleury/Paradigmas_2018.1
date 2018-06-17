@@ -1,6 +1,8 @@
 package behaviours;
 
 import jade.core.behaviours.OneShotBehaviour;
+import jade.wrapper.AgentController;
+import jade.wrapper.ContainerController;
 import jade.wrapper.StaleProxyException;
 import agents.AgentCompanion;
 import agents.AgentStudent;
@@ -17,11 +19,14 @@ public class CreateCompanionBehaviour extends OneShotBehaviour{
 	@Override
 	public void action() {
 		try {
-			AgentCompanion studentCompanion = new AgentCompanion();
-			this.getAgent().getContainerController().acceptNewAgent("Companion" + this.getAgent().getName(), 
-					studentCompanion).start();
+				AgentCompanion studentCompanion = new AgentCompanion();
+				ContainerController cc = this.myAgent.getContainerController();
+				
+				AgentController ac = cc.acceptNewAgent("Companion" + this.getAgent().getName(), studentCompanion);
+				
+				ac.start();
 			
-			((AgentStudent) this.getAgent()).setCompanion(studentCompanion.getAID());
+				((AgentStudent) this.getAgent()).setCompanion(studentCompanion.getAID());
 		} catch (StaleProxyException e) {
 			e.printStackTrace();
 		}

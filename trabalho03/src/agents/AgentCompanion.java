@@ -45,7 +45,7 @@ public class AgentCompanion extends Agent{
 						myAgent.send(reply);
 					}
 				} else {
-					block(10);
+					block();
 				}
 				
 			}

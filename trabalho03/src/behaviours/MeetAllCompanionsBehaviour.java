@@ -24,18 +24,20 @@ public class MeetAllCompanionsBehaviour extends OneShotBehaviour{
 		public void action() {
 	        DFAgentDescription dfd = new DFAgentDescription();
 	        ServiceDescription sd  = new ServiceDescription();
-	        sd.setType("AgentStudent");
+	        sd.setType("AgentCompanion");
 	        dfd.addServices(sd);
+	        block(1000);
 	        
 	        DFAgentDescription[] result;
 			SearchConstraints all = new SearchConstraints();
 			all.setMaxResults(new Long(-1));
 			try {
 				result = DFService.search(this.getAgent(), dfd, all);
-
+				System.out.println(result);
 				AID[] agents = new AID[result.length];
 	            for (int i=0; i<result.length; i++) {
 	                agents[i] = result[i].getName();
+	                System.out.println(agents[i]);
 	            }
 	            
 	            this.getAgent().addBehaviour(new CheckStudentProgressBehaviour(this.getAgent(), agents));

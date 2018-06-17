@@ -34,8 +34,7 @@ public class AgentTeacher extends Agent{
 		register(sd);
 		
 		System.out.println(getName() + ": \t" + "Eu sou um professor, e preciso conhecer os Companions dos alunos da minha turma");
-		MeetAllCompanionsBehaviour mCB = new MeetAllCompanionsBehaviour(this);
-		addBehaviour(mCB);
+
 		UtilsEvaluation utils = new UtilsEvaluation();
 		
 		// Random Content on Evaluation
@@ -54,6 +53,30 @@ public class AgentTeacher extends Agent{
 		secondEvaluation.addContent(firstContent);
 		secondEvaluation.addContent(secondContent);
 		evaluationStatus(secondEvaluation.getIdEvaluatio(),secondEvaluation.getContent());
+		
+		MeetAllCompanionsBehaviour mCB = new MeetAllCompanionsBehaviour(this);
+		addBehaviour(mCB);
+		
+		addBehaviour(new CyclicBehaviour(this) {
+			
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public void action() {
+				ACLMessage message = myAgent.receive();
+				
+				if (message != null) {
+					String messageContent = message.getContent();
+					if(message.getPerformative() == ACLMessage.INFORM) {						
+							System.out.println(getName() + "  resposta recebida : \t" + messageContent);
+					}
+				} else {
+					block();
+				}
+				
+			}
+		});
+		
 	} 
 	
 	private void evaluationStatus(int evaluationID,List<String> contents) {

@@ -30,8 +30,7 @@ public class CheckStudentProgressBehaviour extends OneShotBehaviour{
 			System.out.println(myAgent.getName() + ": \t enviando mensagem para acompanhar estudante para o companion: " + aid);
 			message.setContent(mensagem);
 			myAgent.send(message);	
-		}
-		
+		}	
 	}
 
 }
