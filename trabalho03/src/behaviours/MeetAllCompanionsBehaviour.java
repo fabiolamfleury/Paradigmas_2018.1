@@ -2,6 +2,7 @@ package behaviours;
 
 import jade.core.AID;
 import jade.core.Agent;
+import jade.core.behaviours.CyclicBehaviour;
 import jade.core.behaviours.OneShotBehaviour;
 import jade.domain.DFService;
 import jade.domain.FIPAException;
@@ -9,7 +10,7 @@ import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import jade.domain.FIPAAgentManagement.SearchConstraints;
 import jade.domain.FIPAAgentManagement.ServiceDescription;
 
-public class MeetAllCompanionsBehaviour extends OneShotBehaviour{
+public class MeetAllCompanionsBehaviour extends CyclicBehaviour{
 		
 		private static final long serialVersionUID = 7268217846531384442L;
 		
@@ -24,7 +25,7 @@ public class MeetAllCompanionsBehaviour extends OneShotBehaviour{
 		public void action() {
 	        DFAgentDescription dfd = new DFAgentDescription();
 	        ServiceDescription sd  = new ServiceDescription();
-	        sd.setType("AgentCompanion");
+	        sd.setType("AgentCompanion");                                                    
 	        dfd.addServices(sd);
 	        block(1000);
 	        
@@ -33,20 +34,23 @@ public class MeetAllCompanionsBehaviour extends OneShotBehaviour{
 			all.setMaxResults(new Long(-1));
 			try {
 				result = DFService.search(this.getAgent(), dfd, all);
-				System.out.println(result);
-				AID[] agents = new AID[result.length];
-	            for (int i=0; i<result.length; i++) {
-	                agents[i] = result[i].getName();
-	                System.out.println(agents[i]);
+				if(result.length > 1) {
+					AID[] agents = new AID[result.length];
+					for (int i=0; i<result.length; i++) {
+						agents[i] = result[i].getName();
+					}
+					
+					
+					this.getAgent().addBehaviour(new CheckStudentProgressBehaviour(this.getAgent(), agents));
+					this.getAgent().removeBehaviour(this);
 	            }
-	            
-	            this.getAgent().addBehaviour(new CheckStudentProgressBehaviour(this.getAgent(), agents));
+				else {
+					block();
+				}
 			} catch (FIPAException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-	        
-
 		}
 		
 	
