@@ -97,7 +97,6 @@ public class AgentCompanion extends Agent{
     private double getNote(String message) {
     	String [] split = message.split(" ");
     	double note = Double.parseDouble(split[3]);
-    	System.out.println(getName() + ": \t" + note);
     	return note;
     }
 }
